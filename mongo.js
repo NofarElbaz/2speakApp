@@ -1,4 +1,3 @@
-/*
 const mongoose = require('mongoose') 
 const mongoUri = 'mongodb+srv://NN:NN2021@cluster0.w8zew.mongodb.net/2speakApp?retryWrites=true&w=majority'
 mongoose.connect(mongoUri, {
@@ -22,5 +21,3 @@ var wordSchema = new Schema({
   });
 
 var word = mongoose.model('Words', wordSchema );
-
-*/
