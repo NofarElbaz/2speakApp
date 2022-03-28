@@ -4,12 +4,7 @@ import {HeadLine} from "../components/HeadLine";
 import { IconButton } from 'react-native-paper';
 import React , { useState } from 'react'; 
 import { Audio } from 'expo-av';
-/*
-import Voice, {
-  SpeechResultsEvent,
-  SpeechErrorEvent,
-} from "@react-native-voice/voice";
-*/
+
 
 export const RecordingScreen = () => {
   const [recording, setRecording] = useState();
