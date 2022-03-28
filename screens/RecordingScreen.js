@@ -65,7 +65,6 @@ export const RecordingScreen = () => {
       ('ההקלטה שלך נשמרה בהצלחה',ToastAndroid.LONG,ToastAndroid.CENTER);
       }
       console.log(savedRecordings)
-      console.log(saveRecording)
       setRecordingStarted("false")
       setRecordingStopped("false")
     }
