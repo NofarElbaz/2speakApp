@@ -16,7 +16,7 @@ mongoose.connection.on('Error', (err) => {
 
 var Schema = mongoose.Schema;
 var wordSchema = new Schema({
-    id : Number,
+    category : String,
     name : String,
     recordsUri : [],
     imagePath : String
