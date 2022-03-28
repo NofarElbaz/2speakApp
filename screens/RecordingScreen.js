@@ -4,8 +4,6 @@ import {HeadLine} from "../components/HeadLine";
 import { IconButton } from 'react-native-paper';
 import React , { useState } from 'react'; 
 import { Audio } from 'expo-av';
-import { Popup } from 'popup-ui'
-
 
 export const RecordingScreen = () => {
   const [recordingUri, setRecordingUri] = useState("none");
@@ -16,7 +14,7 @@ export const RecordingScreen = () => {
   //const [saveRecording , setSaveRecording] = useState("false");
 
   async function startRecording() {
-    if(recordingStarted == "false"){
+    if(recordingStarted == "false" && savedRecordings < 10){
       try {
         console.log('Chacking permissions..');
         await Audio.requestPermissionsAsync();
@@ -41,7 +39,6 @@ export const RecordingScreen = () => {
       ('ישנה הקלטה במערכת במחכה לאישור\nבחר אם למחוק או לשמור אותה\nורק לאחר מכן תוכל להקליט שוב',ToastAndroid.LONG,ToastAndroid.CENTER);
     }
   }
- 
 
   async function stopRecording() {
     if(recordingStarted == "true"){
