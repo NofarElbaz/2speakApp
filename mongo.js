@@ -18,7 +18,7 @@ var Schema = mongoose.Schema;
 var wordSchema = new Schema({
     id : Number,
     name : String,
-    recordsUri : [],
+    recordsUri : [],//uri path - string array
     imagePath : String
   });
 

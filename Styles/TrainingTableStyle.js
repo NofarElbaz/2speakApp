@@ -74,6 +74,7 @@ export const TrainingTableStyle = StyleSheet.create({
       imageButton: {
         borderWidth:1,
         borderColor:'black',
+        //borderColor:'#addfd5', 
         alignItems:'center',
         justifyContent:'center',
         width:'25%',

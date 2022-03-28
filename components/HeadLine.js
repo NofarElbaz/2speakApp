@@ -10,8 +10,8 @@ export const HeadLine = () => {
 
 export const HeaderStyles = StyleSheet.create({
     header: {
-        height: '12%',
-        backgroundColor: '#F0C421'
+        height: '10%',
+        backgroundColor: '#addfd5'
     }
 })
 
