@@ -41,6 +41,8 @@ const styles = StyleSheet.create({
     fontSize :45,
     marginTop : '27%',
     //marginLeft : '5%'
+    //marginBottom: '60%',
+
   },
   textStyle2: {
     //fontFamily: "yeuda",
@@ -50,33 +52,46 @@ const styles = StyleSheet.create({
     fontSize :25,
     //height : '5%',
     //width : '50%',
-    marginTop : '10%',
+    marginTop : '9%',
     //marginLeft : '25%'
+    marginBottom: '30%',
+
   },
-  button: {//אין שימוש???
+  button: {
+    alignItems: 'center',
     top: '10%',
-    left: '0%',
-    width: '23%',
+    left: '41%',
+    width: '20%',
     height: '80%',
     position: "absolute",
-    backgroundColor: "#E6E6E6",
+    backgroundColor: "#000000",
     opacity: 0
   },
   image: {
-    //top: '30%',
+    top: '10%',
     //left: '50%',
     //width: '100%',
     //height: '10',
     //resizeMode: 'contain',
     //paddingTop: 90,
     flex: 1,
-    width: null,
-    height: null,
     resizeMode: 'contain',
-    marginBottom: 100,
+
+    //tintColor: '#000000',
+    width: '100%',
+    height: '20%',
+    marginBottom: '5%',
+    //display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 100,
+
   },
   icon2Stack: {
-    marginLeft: 60,
-    //alignItems: "center"
+    //marginLeft: 60,
+    alignItems: 'center',
   }
+
+
+  
 });
