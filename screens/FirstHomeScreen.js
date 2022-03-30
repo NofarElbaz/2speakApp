@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Dimensions } from 'react-native';
 import {TabNavigation} from '../Navigation/TabNavigation'
 //import {HeadLine} from "../components/HeadLine";
+import ButtonNoa from "../components/ButtonNoa";
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -19,25 +20,30 @@ export const FirstHomeScreen = ({navigation}) => {
     <ScrollView>
       <View style={styles.container}>
         <Image style={styles.image}
-        source={require("../assets/2speak_logo.png")} />
-        <Text style={styles.textStyle1}> ברוכים הבאים</Text>
-        <Text style={styles.textStyle2}>לפני שנתחיל</Text>
-        <View style={styles.icon2Stack}>
-          <Ionicons name="book-outline" size={60} color="#addfd5" />
-          <TouchableOpacity
-            onPress={() => navigation.navigate("Training")}
-            style={styles.buttonIcon}
-            ></TouchableOpacity>
+        source={require("../assets/2speak_logo.jpg")} />
+        <View style={styles.MainButton}>
+        <Button title="הקלט"
+          onPress={() => navigation.navigate('Training')}
+          color='#addfd5'
+        />
         </View>
+        <View style={styles.MainButton}>
+        <Button title="תרגם"
+          onPress={() => navigation.navigate('Training')}
+          color='#addfd5'
+        />
+        </View>
+          <ButtonNoa label={'press'}/>
+
         <View style={styles.tabNavStyle}>
+          <Button title="מדריך"
+          onPress={() => navigation.navigate('Guide1')}
+          color='#addfd5'/>
           <Button title="לוח אימון"
           onPress={() => navigation.navigate('Training')}
           color='#addfd5'/>
-          <Button title="תרגום"
+          <Button title="דף הבית"
           onPress={() => navigation.navigate('FirstHome')}
-          color='#addfd5'/>
-          <Button title="מדריך"
-          onPress={() => navigation.navigate('dim')}
           color='#addfd5'/>
         </View>
     </View>
@@ -48,9 +54,11 @@ export const FirstHomeScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
+    //backgroundColor: "white",
     alignItems: 'center',
-    justifyContent: 'center',
+    //justifyContent: 'center',
+    //marginHorizontal: 16,
+    
   },
   tabNavStyle:{
     //flex :1,
@@ -62,8 +70,7 @@ const styles = StyleSheet.create({
     color: "black",
     textAlign: "center",
     fontSize :45,
-    marginTop : '27%',
-    //marginLeft : '5%'
+    //marginTop : '27%',
     //marginBottom: '60%',
 
   },
@@ -77,7 +84,7 @@ const styles = StyleSheet.create({
     //width : '50%',
     marginTop : '9%',
     //marginLeft : '25%'
-    marginBottom: '30%',
+    marginBottom: '10%',
 
   },
   buttonIcon: {
@@ -90,24 +97,46 @@ const styles = StyleSheet.create({
     backgroundColor: "#000000",
     opacity: 0
   },
+  MainButton: {
+    //alignItems: 'center',
+    width: windowW*0.3,
+    height: windowH*0.07,
+    //backgroundColor: "#addfd5",
+    //position: "absolute",
+    //borderRadius: 30,
+    //marginRight: 40,
+    //marginLeft: 40,
+    marginTop: 10,
+    //paddingTop: 20,
+    //paddingBottom: 20,
+    //backgroundColor: '#68a0cf',
+    //borderRadius: 10,
+    //borderWidth: 1,
+    justifyContent: 'space-around',
+    //flexDirection : 'row',
+    textAlign:'center',
+    //fontWeight: 'bold',
+    overflow: 'hidden',
+    
+  },
   image: {
-    top: '10%',
+    //top: '10%',
     //left: '50%',
     //width: '100%',
     //height: '10',
-    //resizeMode: 'contain',
+    resizeMode: 'contain',
     //paddingTop: 90,
     flex: 1,
     resizeMode: 'contain',
 
     //tintColor: '#000000',
-    width: '100%',
-    height: '20%',
-    marginBottom: 20,
+    width: windowW*0.3,
+    height: windowH*0.3,
+    //marginBottom: windowH*0.03,
     //display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 100,
+    borderWidth: windowW*0.4,
 
   },
   icon2Stack: {
