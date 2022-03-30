@@ -24,6 +24,7 @@ import {Guide1Screen} from '../screens/Guide1Screen';
 import {Guide2Screen} from '../screens/Guide2Screen';
 import {Guide3Screen} from '../screens/Guide3Screen';
 import {AdverbScreen} from '../screens/Adverb';
+import {noa} from '../screens/dim';//import to fum from 
 
 const Stack = createStackNavigator();
 
@@ -54,6 +55,7 @@ export const Navigation = () => {
       <Stack.Screen name = "Prepositions" component={PrepositionsScreen} />
       <Stack.Screen name = "Recording" component={RecordingScreen} />
       <Stack.Screen name = "Adverb" component={AdverbScreen} />
+      <Stack.Screen name = "dim" component={noa} />
     </Stack.Navigator>
     </NavigationContainer>
 );   

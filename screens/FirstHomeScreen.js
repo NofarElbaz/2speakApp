@@ -5,6 +5,9 @@ import { Dimensions } from 'react-native';
 import {TabNavigation} from '../Navigation/TabNavigation'
 //import {HeadLine} from "../components/HeadLine";
 
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
+
 
 const windowW= Dimensions.get('window').width;
 const windowH = Dimensions.get('window').height;
@@ -21,7 +24,7 @@ export const FirstHomeScreen = ({navigation}) => {
           <Ionicons name="book-outline" size={60} color="#addfd5" />
           <TouchableOpacity
             onPress={() => navigation.navigate("Training")}
-            style={styles.button}
+            style={styles.buttonIcon}
             ></TouchableOpacity>
         </View>
         <View style={styles.tabNavStyle}>
@@ -32,7 +35,7 @@ export const FirstHomeScreen = ({navigation}) => {
           onPress={() => navigation.navigate('FirstHome')}
           color='#addfd5'/>
           <Button title="מדריך"
-          onPress={() => navigation.navigate('Guide1')}
+          onPress={() => navigation.navigate('dim')}
           color='#addfd5'/>
         </View>
     </View>
@@ -43,7 +46,9 @@ export const FirstHomeScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white"
+    backgroundColor: "white",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   tabNavStyle:{
     //flex :1,
@@ -73,7 +78,7 @@ const styles = StyleSheet.create({
     marginBottom: '30%',
 
   },
-  button: {
+  buttonIcon: {
     alignItems: 'center',
     top: '10%',
     left: '41%',
@@ -96,7 +101,7 @@ const styles = StyleSheet.create({
     //tintColor: '#000000',
     width: '100%',
     height: '20%',
-    marginBottom: '5%',
+    marginBottom: 20,
     //display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',

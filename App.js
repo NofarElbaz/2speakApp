@@ -4,6 +4,7 @@ import * as Font from 'expo-font'
 import {Navigation} from './Navigation'
 import 'expo-dev-client'
 
+
 const fetchFonts = () => {
   return Font.loadAsync({
 
@@ -29,3 +30,4 @@ export default function App() {
   };
   return(<Navigation/>);
 }
+
