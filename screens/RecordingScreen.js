@@ -14,69 +14,57 @@ export const RecordingScreen = () => {
   //const [saveRecording , setSaveRecording] = useState("false");
 
   async function startRecording() {
-    if(recordingStarted == "false" && savedRecordings < 10){
-      try {
-        console.log('Chacking permissions..');
-        await Audio.requestPermissionsAsync();
-        await Audio.setAudioModeAsync({
-          allowsRecordingIOS: true,
-          playsInSilentModeIOS: true,
-        }); 
-        console.log('Starting recording..');
-        setRecordingStarted("true");
-        const { recording } = await Audio.Recording.createAsync(
-          Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY
-        );
-        setRecordingUri(recording);
-        console.log('Recording started');
+    //console.log(savedRecordings)
+    if(savedRecordings < 10){
+      //console.log(recordingUri)
+      //console.log(savedRecordings)
+      if(recordingUri != 'none'){
+        ToastAndroid.showWithGravity
+        ('לידיעתך ההקלטה האחרונה שבצעת לא נשמרה במערכת',ToastAndroid.SHORT,ToastAndroid.CENTER);
+        startR()
       } 
-      catch (err) {
-        console.error('Failed to start recording', err);
+      else {
+        startR()
       }
     }
     else{
       ToastAndroid.showWithGravity
-      ('ישנה הקלטה במערכת במחכה לאישור\nבחר אם למחוק או לשמור אותה\nורק לאחר מכן תוכל להקליט שוב',ToastAndroid.LONG,ToastAndroid.CENTER);
+      ('הקלטת מספיק :) , ניתן לעבור למילה הבאה',ToastAndroid.LONG,ToastAndroid.CENTER);
+    }
+  }
+
+  async function startR(){
+    try {
+      console.log('Chacking permissions..');
+      await Audio.requestPermissionsAsync();
+      await Audio.setAudioModeAsync({
+        allowsRecordingIOS: true,
+        playsInSilentModeIOS: true,
+      }); 
+      console.log('Starting recording..');
+      setRecordingStarted("true");
+      const { recording } = await Audio.Recording.createAsync(
+        Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY
+      );
+      setRecordingUri(recording);
+      console.log('Recording started');
+    } 
+    catch (err) {
+      console.error('Failed to start recording', err);
     }
   }
 
   async function stopRecording() {
-    if(recordingStarted == "true"){
       console.log('Stopping recording..');
       //setRecording(recording);
       await recordingUri.stopAndUnloadAsync();
       const uri = recordingUri.getURI(); 
       console.log('Recording stopped and stored at', uri);
       setRecordingStopped("true");
-    }
-    else{
-      ToastAndroid.showWithGravity
-      ('קודם עליך לבצע הקלטה!',ToastAndroid.LONG,ToastAndroid.CENTER);
-
-    }
-  }
-
-  function saveRecordingInDB(){
-    if(recordingStarted == "true" && recordingStopped =="true"){
-      if(savedRecordings < 10){
-        setSavedRecordings(savedRecordings+1)
-        //add save in mongoDB
-        ToastAndroid.showWithGravity
-      ('ההקלטה שלך נשמרה בהצלחה',ToastAndroid.LONG,ToastAndroid.CENTER);
-      }
-      console.log(savedRecordings)
-      setRecordingStarted("false")
-      setRecordingStopped("false")
-    }
-    else{
-      ToastAndroid.showWithGravity
-      ('קודם עליך לבצע הקלטה!',ToastAndroid.LONG,ToastAndroid.CENTER);
-    }
-
+      playRecording()
   }
 
   async function playRecording() {
-    if(recordingStarted == "true" && recordingStopped =="true"){
     console.log("play recording...");
     //console.log( recording.getURI());
     const { sound } = await Audio.Sound.createAsync(
@@ -86,22 +74,35 @@ export const RecordingScreen = () => {
     console.log("Playing Sound");
     await sound.playAsync();
     ToastAndroid.showWithGravity
-    ('ההקלטה בוצעה בהצלחה\nכדי לשמור אותה יש ללחוץ על הV',ToastAndroid.LONG,ToastAndroid.CENTER);
+    ('ההקלטה בוצעה בהצלחה\nלחיצה על כפתור אישור תישמור את ההקלטה\nלחיצה על כפתור האשפה תמחוק את ההקלטה',ToastAndroid.LONG,ToastAndroid.CENTER);
+  }
+
+  function saveRecordingInDB(){
+    if(recordingUri != 'none'){
+        setSavedRecordings(savedRecordings+1)
+        //add save in mongoDB
+        ToastAndroid.showWithGravity
+      ('ההקלטה נשמרה',ToastAndroid.SHORT,ToastAndroid.CENTER);
+      console.log(savedRecordings)
+      setRecordingStarted("false")
+      setRecordingStopped("false")
+      setRecordingUri('none')
     }
     else{
       ToastAndroid.showWithGravity
-      ('קודם עליך לבצע הקלטה!',ToastAndroid.LONG,ToastAndroid.CENTER)
+      ('לא ניתן לשמור הקלטה טרם בוצעה',ToastAndroid.SHORT,ToastAndroid.CENTER);
     }
   }
 
   function deleteRecording(){
-    if(recordingStarted == "true" && recordingStopped =="true"){
-      ToastAndroid.showWithGravity('ההקלטה נמחקה',ToastAndroid.LONG,ToastAndroid.CENTER)
+    if(recordingUri != 'none'){
+      ToastAndroid.showWithGravity('ההקלטה נמחקה',ToastAndroid.SHORT,ToastAndroid.CENTER)
       setRecordingStarted("false")
       setRecordingStopped("false")
+      setRecordingUri('none')
     }
     else{
-      ToastAndroid.showWithGravity('לא ניתן למחוק הקלטה טרם בוצעה',ToastAndroid.LONG,ToastAndroid.CENTER)
+      ToastAndroid.showWithGravity('לא ניתן למחוק הקלטה טרם בוצעה',ToastAndroid.SHORT,ToastAndroid.CENTER)
     }
   }
 
@@ -116,40 +117,26 @@ export const RecordingScreen = () => {
 
   return (
     <View style = {style.container}>
-      <HeadLine/>
-      <View style={style.recordIconStack}>
-      <Pressable
-        onPressIn={() => {
+
+      <View style={style.pressableStyle}>
+
+        <Pressable
+          onPressIn={() => {
           setTimesPressed(current => current + 1);
           startRecording();
           }}
           style={({ pressed }) => [{
             backgroundColor: pressed ? 'red' : '#addfd5'},
-        ]}
-        onPressOut={()=> stopRecording ()}>
-        {({ pressed }) => <Text>{pressed ? 'שחרר כדי להפסיק הקלטה' : 'לחיצה ארוכה להקלטה'}</Text>}
-      </Pressable>
+          ]}
+          onPressOut={
+            ()=> {if(savedRecordings<10){stopRecording ()}}}>
+          {({ pressed }) => <Text>{pressed ? 'שחרר כדי להפסיק הקלטה' : 'לחיצה ארוכה להקלטה'}</Text>}
+        </Pressable>
 
-        <IconButton
-          icon="record"
-          color={"#addfd5"}
-          size={45}
-          onPress={() => startRecording() }
-        />
-        <IconButton
-          icon="stop"
-          color={"#addfd5"}
-          size={45}
-          onPress={() => stopRecording ()}
-        />
-          <IconButton 
-          icon="play"
-          color={"#addfd5"}
-          size={45}
-          onPress={() => playRecording()}
-        />
       </View>
+
       <View style={style.recordIconStack}>
+
         <IconButton
           icon="check"
           color={"#addfd5"}
@@ -175,10 +162,39 @@ export const RecordingScreen = () => {
     recordIconStack: {
       flex:1,
       justifyContent:'center',
+      flexDirection: 'row',
         //marginTop: "60%",
         //marginLeft: "19%",
-      flexDirection: 'row',
+      
     },
+    pressableStyle: {
+      flex:1,
+      justifyContent:'center'
+    }
+
 });
+
+/*
+
+  <IconButton
+          icon="record"
+          color={"#addfd5"}
+          size={45}
+          onPress={() => startRecording() }
+        />
+        <IconButton
+          icon="stop"
+          color={"#addfd5"}
+          size={45}
+          onPress={() => stopRecording ()}
+        />
+          <IconButton 
+          icon="play"
+          color={"#addfd5"}
+          size={45}
+          onPress={() => playRecording()}
+        />
+
+*/
 
 
