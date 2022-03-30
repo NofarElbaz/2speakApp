@@ -25,7 +25,6 @@ import {Guide2Screen} from '../screens/Guide2Screen';
 import {Guide3Screen} from '../screens/Guide3Screen';
 import {AdverbScreen} from '../screens/Adverb';
 
-
 const Stack = createStackNavigator();
 
 export const Navigation = () => {
@@ -57,6 +56,5 @@ export const Navigation = () => {
       <Stack.Screen name = "Adverb" component={AdverbScreen} />
     </Stack.Navigator>
     </NavigationContainer>
-
 );   
 };

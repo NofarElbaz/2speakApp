@@ -1,7 +1,8 @@
 import React from "react";
-import {StyleSheet,View,Text,Image,TouchableOpacity} from "react-native";
+import {StyleSheet,View,Text,Image,TouchableOpacity ,ScrollView,Button} from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import { Dimensions } from 'react-native';
+import {TabNavigation} from '../Navigation/TabNavigation'
 //import {HeadLine} from "../components/HeadLine";
 
 
@@ -10,21 +11,32 @@ const windowH = Dimensions.get('window').height;
 
 export const FirstHomeScreen = ({navigation}) => {
   return (
-    <View style={styles.container}>
-      <Image
-      style={styles.image}
-      source={require("../assets/2speak_logo.png")} 
-      />
-      <Text style={styles.textStyle1}> ברוכים הבאים</Text>
-      <Text style={styles.textStyle2}>לפני שנתחיל</Text>
-      <View style={styles.icon2Stack}>
-        <Ionicons name="book-outline" size={60} color="#addfd5" />
-        <TouchableOpacity
-          onPress={() => navigation.navigate("Training")}
-          style={styles.button}
-        ></TouchableOpacity>
-      </View>
+    <ScrollView>
+      <View style={styles.container}>
+        <Image style={styles.image}
+        source={require("../assets/2speak_logo.png")} />
+        <Text style={styles.textStyle1}> ברוכים הבאים</Text>
+        <Text style={styles.textStyle2}>לפני שנתחיל</Text>
+        <View style={styles.icon2Stack}>
+          <Ionicons name="book-outline" size={60} color="#addfd5" />
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Training")}
+            style={styles.button}
+            ></TouchableOpacity>
+        </View>
+        <View style={styles.tabNavStyle}>
+          <Button title="לוח אימון"
+          onPress={() => navigation.navigate('Training')}
+          color='#addfd5'/>
+          <Button title="תרגום"
+          onPress={() => navigation.navigate('FirstHome')}
+          color='#addfd5'/>
+          <Button title="מדריך"
+          onPress={() => navigation.navigate('Guide1')}
+          color='#addfd5'/>
+        </View>
     </View>
+    </ScrollView>
   );
 }
 
@@ -32,6 +44,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white"
+  },
+  tabNavStyle:{
+    //flex :1,
+    flexDirection : 'row'
   },
   textStyle1: {
     //fontFamily: "yeuda-bold",

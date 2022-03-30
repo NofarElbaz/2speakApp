@@ -1,5 +1,5 @@
 
-import { View, StyleSheet, ToastAndroid} from 'react-native';
+import { View, StyleSheet, ToastAndroid ,Pressable ,Text} from 'react-native';
 import {HeadLine} from "../components/HeadLine";
 import { IconButton } from 'react-native-paper';
 import React , { useState } from 'react'; 
@@ -105,10 +105,31 @@ export const RecordingScreen = () => {
     }
   }
 
+  const [timesPressed, setTimesPressed] = useState(0);
+
+  let textLog = '';
+  if (timesPressed > 1) {
+    textLog = timesPressed + 'x onPress';
+  } else if (timesPressed > 0) {
+    textLog = 'onPress';
+  }
+
   return (
     <View style = {style.container}>
       <HeadLine/>
       <View style={style.recordIconStack}>
+      <Pressable
+        onPressIn={() => {
+          setTimesPressed(current => current + 1);
+          startRecording();
+          }}
+          style={({ pressed }) => [{
+            backgroundColor: pressed ? 'red' : '#addfd5'},
+        ]}
+        onPressOut={()=> stopRecording ()}>
+        {({ pressed }) => <Text>{pressed ? 'שחרר כדי להפסיק הקלטה' : 'לחיצה ארוכה להקלטה'}</Text>}
+      </Pressable>
+
         <IconButton
           icon="record"
           color={"#addfd5"}

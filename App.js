@@ -3,9 +3,6 @@ import AppLoading from 'expo-app-loading'
 import * as Font from 'expo-font'
 import {Navigation} from './Navigation'
 import 'expo-dev-client'
-import {StatusBar} from 'react-native';
-import {RootNavigator} from './Navigation/RootNavigator';
-//hello12
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -30,5 +27,5 @@ export default function App() {
       />
     );
   };
-  return(<Navigation><StatusBar hidden /><RootNavigator /></Navigation>);
+  return(<Navigation/>);
 }
