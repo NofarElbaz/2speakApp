@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Dimensions } from 'react-native';
 import {TabNavigation} from '../Navigation/TabNavigation'
 //import {HeadLine} from "../components/HeadLine";
-import ButtonNoa from "../components/ButtonNoa";
+//import ButtonNoa from "../components/ButtonNoa";
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
