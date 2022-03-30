@@ -33,7 +33,7 @@ export const FirstHomeScreen = ({navigation}) => {
           color='#addfd5'
         />
         </View>
-          <ButtonNoa label={'press'}/>
+        
 
         <View style={styles.tabNavStyle}>
           <Button title="מדריך"
