@@ -20,7 +20,7 @@ export const FirstHomeScreen = ({navigation}) => {
     <ScrollView>
       <View style={styles.container}>
         <Image style={styles.image}
-        source={require("../assets/2speak_logo.jpg")} />
+        source={require("../assets/logo.png")} />
         <View style={styles.MainButton}>
         <Button title="הקלט"
           onPress={() => navigation.navigate('Training')}
@@ -54,7 +54,7 @@ export const FirstHomeScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    //backgroundColor: "white",
+    backgroundColor: "white",
     alignItems: 'center',
     //justifyContent: 'center',
     //marginHorizontal: 16,
@@ -62,7 +62,9 @@ const styles = StyleSheet.create({
   },
   tabNavStyle:{
     //flex :1,
-    flexDirection : 'row'
+    flexDirection : 'row',
+    marginTop : '48%',
+    //width: '50%',
   },
   textStyle1: {
     fontFamily: "verdana",
@@ -116,6 +118,7 @@ const styles = StyleSheet.create({
     //fontWeight: 'bold',
     overflow: 'hidden',
     
+    
   },
   image: {
     //top: '10%',
@@ -140,8 +143,5 @@ const styles = StyleSheet.create({
   icon2Stack: {
     //marginLeft: 60,
     alignItems: 'center',
-  }
-
-
-  
+  }  
 });
