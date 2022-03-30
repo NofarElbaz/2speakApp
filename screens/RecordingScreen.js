@@ -1,9 +1,12 @@
 
-import { View, StyleSheet, ToastAndroid ,Pressable ,Text} from 'react-native';
-import {HeadLine} from "../components/HeadLine";
+import { View, StyleSheet, ToastAndroid ,Pressable ,Text ,Dimensions} from 'react-native';
 import { IconButton } from 'react-native-paper';
 import React , { useState } from 'react'; 
 import { Audio } from 'expo-av';
+
+
+const windowW= Dimensions.get('window').width;
+const windowH = Dimensions.get('window').height;
 
 export const RecordingScreen = () => {
   const [recordingUri, setRecordingUri] = useState("none");
@@ -168,8 +171,31 @@ export const RecordingScreen = () => {
       
     },
     pressableStyle: {
-      flex:1,
-      justifyContent:'center'
+      borderRadius: 8,
+      padding: 6,
+      height: windowH/15,
+      width: windowW/2,
+      justifyContent: 'center',
+      alignItems: 'center',
+      elevation: 8,
+      //flex:1,
+      //width: windowW/2,
+      //height: windowH/15,
+      //alignItems: 'center',
+      //justifyContent:'center',
+      
+      //borderRadius: 60,
+   
+    //borderWidth: 4, //Frame thickness
+   // borderColor: "#F0C421",
+    
+    //marginTop: '90%',
+    //marginLeft: '45%',
+    //textAlign: "center",
+    //margin: '50%',
+    //alignItems:'center',
+    //justifyContent:'center',
+    //padding: 3,
     }
 
 });
