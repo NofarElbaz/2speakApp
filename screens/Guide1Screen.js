@@ -7,7 +7,6 @@ export const Guide1Screen = (props) => {
   return (
     <ScrollView>
     <View style={styles.container}>
-        <HeadLine/>
         <Text style={styles.text1}>
           אפליקציה זו פותחה  {"\n"}במטרה לאפשר לכם לנהל שיחה בצורה
           טבעית{"\n"} על ידי הקול שלכם{"\n"}אז איך זה עובד? {"\n"} אתם
@@ -36,10 +35,10 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   text1: {
-    fontFamily: "yeuda-bold",
-    color: "#010101",
+    fontFamily: "verdana",
+    color: "#ADDFD5",
     textAlign: "center",
-    fontSize: 5,
+    fontSize: 13,
     lineHeight: 25 , //space between lines
     marginTop : '15%',
     marginLeft : '0%'
