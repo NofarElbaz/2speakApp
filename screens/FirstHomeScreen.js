@@ -65,7 +65,6 @@ const styles = StyleSheet.create({
     flexDirection : 'row'
   },
   textStyle1: {
-    //fontFamily: "yeuda-bold",
     fontFamily: "verdana",
     color: "black",
     textAlign: "center",
@@ -75,7 +74,6 @@ const styles = StyleSheet.create({
 
   },
   textStyle2: {
-    //fontFamily: "yeuda",
     fontFamily: "verdana",
     color: "black",
     textAlign: "center",
