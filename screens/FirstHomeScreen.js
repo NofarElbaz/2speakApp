@@ -13,6 +13,8 @@ const windowW= Dimensions.get('window').width;
 const windowH = Dimensions.get('window').height;
 
 export const FirstHomeScreen = ({navigation}) => {
+  console.log(windowW)
+  console.log(windowH)
   return (
     <ScrollView>
       <View style={styles.container}>
