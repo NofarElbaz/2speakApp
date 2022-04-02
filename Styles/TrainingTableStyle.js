@@ -40,7 +40,7 @@ export const TrainingTableStyle = StyleSheet.create({
         backgroundColor:'white',
       },
       ScrollView:{
-        backgroundColor: '#CDE8E1'
+        backgroundColor: '#E4FAF5'
       }
       
 })

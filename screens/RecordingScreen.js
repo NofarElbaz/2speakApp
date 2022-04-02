@@ -129,11 +129,11 @@ export const RecordingScreen = () => {
           startRecording();
           }}
           style={({ pressed }) => [{
-            backgroundColor: pressed ? 'red' : '#addfd5'},
+            backgroundColor: pressed ? 'red' : 'white'},
           ]}
           onPressOut={
             ()=> {if(savedRecordings<10){stopRecording ()}}}>
-          {({ pressed }) => <Text>{pressed ? 'שחרר כדי להפסיק הקלטה' : 'לחיצה ארוכה להקלטה'}</Text>}
+          {({ pressed }) => <Text>{pressed ? 'שחרר כדי לעצור' : 'הקלט'}</Text>}
         </Pressable>
 
       </View>
@@ -160,7 +160,8 @@ export const RecordingScreen = () => {
 
   const style = StyleSheet.create({
     container: {
-        flex :1 
+        backgroundColor: 'white',
+        flex :1
     },
     recordIconStack: {
       flex:1,
@@ -171,31 +172,19 @@ export const RecordingScreen = () => {
       
     },
     pressableStyle: {
-      borderRadius: 8,
-      padding: 6,
-      height: windowH/15,
-      width: windowW/2,
-      justifyContent: 'center',
+      borderRadius: 0,
+      padding: 2,
+      //height: windowH/12,
+      width: windowW/5,
+      justifyContent: 'flex-end',
       alignItems: 'center',
-      elevation: 8,
-      //flex:1,
-      //width: windowW/2,
-      //height: windowH/15,
-      //alignItems: 'center',
-      //justifyContent:'center',
-      
-      //borderRadius: 60,
-   
-    //borderWidth: 4, //Frame thickness
-   // borderColor: "#F0C421",
-    
-    //marginTop: '90%',
-    //marginLeft: '45%',
-    //textAlign: "center",
-    //margin: '50%',
-    //alignItems:'center',
-    //justifyContent:'center',
-    //padding: 3,
+      //elevation: 5,
+      borderWidth: 3, //Frame thickness
+      borderColor: "#cde8e1",
+      //marginTop: '90%',
+      marginLeft: windowW/2.7,
+      textAlign: "center",
+  
     }
 
 });

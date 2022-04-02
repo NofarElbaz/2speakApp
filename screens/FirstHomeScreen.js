@@ -13,7 +13,7 @@ export const FirstHomeScreen = ({navigation}) => {
       <ImageBackground source={require('../assets/homeScreenBackground.png')} style={styles.image}>
         <View style={styles.Buttons}>
         <Button title="מדריך"
-          onPress={() => navigation.navigate('Guide1')}
+          onPress={() => navigation.navigate('Guide')}
           color='#64C0B5'/>
           <Button title="לוח אימון"
           onPress={() => navigation.navigate('Training')}

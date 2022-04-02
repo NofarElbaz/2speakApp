@@ -7,7 +7,7 @@ import { TrainingTableStyle } from '../Styles/TrainingTableStyle';
 export const  TrainingScreen = ({navigation}) => { 
     return (
       <ScrollView style={TrainingTableStyle.ScrollView}>
-      <SafeAreaView style={TrainingTableStyle.container} backgroundColor='#CDE8E1'> 
+      <SafeAreaView style={TrainingTableStyle.container}> 
        <TouchableOpacity
           onPress={() => navigation.navigate('Pronoun')}
           style={TrainingTableStyle.imageButton}>
