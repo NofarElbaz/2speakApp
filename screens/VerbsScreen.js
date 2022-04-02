@@ -6,7 +6,7 @@ import { TrainingTableStyle } from '../Styles/TrainingTableStyle';
 
 export const VerbsScreen = ({navigation}) => { 
     return (
-      <ScrollView>
+      <ScrollView style={TrainingTableStyle.ScrollView}>
       <View style={TrainingTableStyle.container}> 
       <HeadLine/>
        <TouchableOpacity

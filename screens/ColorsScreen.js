@@ -5,7 +5,7 @@ import { TrainingTableStyle } from '../Styles/TrainingTableStyle';
 
 export const ColorsScreen = ({navigation}) =>  { 
     return (
-      <ScrollView>
+      <ScrollView style={TrainingTableStyle.ScrollView}>
       <View style={TrainingTableStyle.container}> 
       <HeadLine/>
        <TouchableOpacity

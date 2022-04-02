@@ -1,64 +1,60 @@
 import React from "react";
-import {StyleSheet,View,Text,Image,TouchableOpacity ,ScrollView,Button} from "react-native";
-import { Ionicons } from '@expo/vector-icons';
+import {StyleSheet,View,Button,ImageBackground} from "react-native";
+//import { Ionicons } from '@expo/vector-icons';
 import { Dimensions } from 'react-native';
-import {TabNavigation} from '../Navigation/TabNavigation'
-//import {HeadLine} from "../components/HeadLine";
-//import ButtonNoa from "../components/ButtonNoa";
-
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
 
 
 const windowW= Dimensions.get('window').width;
 const windowH = Dimensions.get('window').height;
 
 export const FirstHomeScreen = ({navigation}) => {
-  console.log(windowW)
-  console.log(windowH)
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <Image style={styles.image}
-        source={require("../assets/logo.png")} />
-        <View style={styles.MainButton}>
-        <Button title="הקלט"
-          onPress={() => navigation.navigate('Training')}
-          color='#addfd5'
-        />
-        </View>
-        <View style={styles.MainButton}>
-        <Button title="תרגם"
-          onPress={() => navigation.navigate('Training')}
-          color='#addfd5'
-        />
-        </View>
-        
-
-        <View style={styles.tabNavStyle}>
-          <Button title="מדריך"
+    <View style = {styles.container}>
+      <ImageBackground source={require('../assets/homeScreenBackground.png')} style={styles.image}>
+        <View style={styles.Buttons}>
+        <Button title="מדריך"
           onPress={() => navigation.navigate('Guide1')}
-          color='#addfd5'/>
+          color='#64C0B5'/>
           <Button title="לוח אימון"
           onPress={() => navigation.navigate('Training')}
-          color='#addfd5'/>
-          <Button title="דף הבית"
+          color='#64C0B5'/>
+        <Button title="תרגום"
           onPress={() => navigation.navigate('FirstHome')}
-          color='#addfd5'/>
+          color='#64C0B5'/>
         </View>
+      </ImageBackground>
     </View>
-    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    flex:1,
+  },
+  image:{
+    flex:1,
+    resizeMode:'cover',
+  },
+  Buttons: {
+    flexDirection:'row',
+    justifyContent: 'space-between',
+    marginHorizontal: 20,
+    marginTop: windowH/1.3
+  },
+
+})
+
+
+
+/*
+const styles = StyleSheet.create({
+  container: {
     flex: 1,
-    backgroundColor: "white",
-    alignItems: 'center',
+    flexDirection : 'row',
+    //backgroundColor: "white",
+    //alignItems: 'center',
     //justifyContent: 'center',
-    //marginHorizontal: 16,
-    
+    //marginHorizontal: 16, 
   },
   tabNavStyle:{
     //flex :1,
@@ -99,8 +95,8 @@ const styles = StyleSheet.create({
   },
   MainButton: {
     //alignItems: 'center',
-    width: windowW*0.3,
-    height: windowH*0.07,
+    //width: windowW*0.3,
+    //height: windowH*0.07,
     //backgroundColor: "#addfd5",
     //position: "absolute",
     //borderRadius: 30,
@@ -125,19 +121,19 @@ const styles = StyleSheet.create({
     //left: '50%',
     //width: '100%',
     //height: '10',
-    resizeMode: 'contain',
+    resizeMode: 'cover',
     //paddingTop: 90,
     flex: 1,
-    resizeMode: 'contain',
+    //resizeMode: 'contain',
 
     //tintColor: '#000000',
-    width: windowW*0.3,
-    height: windowH*0.3,
+    //width: windowW*0.3,
+    //height: windowH*0.3,
     //marginBottom: windowH*0.03,
     //display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: windowW*0.4,
+    //justifyContent: 'center',
+    //alignItems: 'center',
+    //borderWidth: windowW*0.4,
 
   },
   icon2Stack: {
@@ -145,3 +141,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   }  
 });
+
+
+*/

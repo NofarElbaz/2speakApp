@@ -5,7 +5,7 @@ import { TrainingTableStyle } from '../Styles/TrainingTableStyle';
 
 export const ShapesScreen = ({navigation}) => { 
     return (
-      <ScrollView>
+      <ScrollView style={TrainingTableStyle.ScrollView}>
       <View style={TrainingTableStyle.container}> 
       <HeadLine/>
        <TouchableOpacity

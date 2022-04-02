@@ -1,14 +1,13 @@
 import React from 'react';
-import { Image, View ,TouchableOpacity,ScrollView} from 'react-native';
+import { Image, View ,TouchableOpacity,ScrollView,SafeAreaView} from 'react-native';
 import {HeadLine} from "../components/HeadLine";
 import { TrainingTableStyle } from '../Styles/TrainingTableStyle';
 
 
 export const  TrainingScreen = ({navigation}) => { 
     return (
-      <ScrollView>
-      <View style={TrainingTableStyle.container}> 
-      <HeadLine/>
+      <ScrollView style={TrainingTableStyle.ScrollView}>
+      <SafeAreaView style={TrainingTableStyle.container} backgroundColor='#CDE8E1'> 
        <TouchableOpacity
           onPress={() => navigation.navigate('Pronoun')}
           style={TrainingTableStyle.imageButton}>
@@ -145,8 +144,9 @@ export const  TrainingScreen = ({navigation}) => {
             resizeMode="cover"
           />
         </TouchableOpacity>
-      </View>
+      </SafeAreaView>
       </ScrollView>
+
       
     );
   }
