@@ -20,11 +20,10 @@ import {QuestionWordsScreen} from '../screens/QuestionWordsScreen';
 import {ConjunctionsScreen} from '../screens/ConjunctionsScreen';
 import {PrepositionsScreen} from '../screens/PrepositionsScreen';
 import {RecordingScreen} from '../screens/RecordingScreen';
-import {Guide1Screen} from '../screens/Guide1Screen';
-import {Guide2Screen} from '../screens/Guide2Screen';
-import {Guide3Screen} from '../screens/Guide3Screen';
 import {AdverbScreen} from '../screens/Adverb';
-import {Guide} from '../screens/Guide'
+import {Guide} from '../screens/Guide';
+import { AddCategory } from '../screens/AddCategory';
+
 
 const Stack = createStackNavigator();
 
@@ -33,9 +32,6 @@ export const Navigation = () => {
     <NavigationContainer>
     <Stack.Navigator>
       <Stack.Screen name = "FirstHome" component={FirstHomeScreen} />
-      <Stack.Screen name = "Guide1" component={Guide1Screen} />
-      <Stack.Screen name = "Guide2" component={Guide2Screen} />
-      <Stack.Screen name = "Guide3" component={Guide3Screen} />
       <Stack.Screen name = "Training" component={TrainingScreen} />
       <Stack.Screen name = "Fruits" component={FruitsScreen} />
       <Stack.Screen name = "Animals" component={AnimalsScreen} />
@@ -56,6 +52,7 @@ export const Navigation = () => {
       <Stack.Screen name = "Recording" component={RecordingScreen} />
       <Stack.Screen name = "Adverb" component={AdverbScreen} />
       <Stack.Screen name = "Guide" component={Guide} />
+      <Stack.Screen name = "AddCategory" component={AddCategory} />
     </Stack.Navigator>
     </NavigationContainer>
 );   

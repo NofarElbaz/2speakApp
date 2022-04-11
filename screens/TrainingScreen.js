@@ -1,12 +1,13 @@
-import React from 'react';
-import { Image, View ,TouchableOpacity,ScrollView,SafeAreaView} from 'react-native';
-import {HeadLine} from "../components/HeadLine";
+import React , {useState} from 'react';
+import { Image, View ,TouchableOpacity,ScrollView,SafeAreaView , Button} from 'react-native';
 import { TrainingTableStyle } from '../Styles/TrainingTableStyle';
 
-
 export const  TrainingScreen = ({navigation}) => { 
-    return (
+
+    
+  return (
       <ScrollView style={TrainingTableStyle.ScrollView}>
+        <Button title='הוספת קטגוריה' color='#64c0b5' onPress={() => navigation.navigate('AddCategory')} />
       <SafeAreaView style={TrainingTableStyle.container}> 
        <TouchableOpacity
           onPress={() => navigation.navigate('Pronoun')}
@@ -146,6 +147,7 @@ export const  TrainingScreen = ({navigation}) => {
         </TouchableOpacity>
       </SafeAreaView>
       </ScrollView>
+
 
       
     );
