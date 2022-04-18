@@ -14,6 +14,7 @@ mongoose.connection.on('Error', (err) => {
     console.error('Error connecting to 2speekDB' ,err)
 });
 
+
 var Schema = mongoose.Schema;
 var wordSchema = new Schema({
     category : String,

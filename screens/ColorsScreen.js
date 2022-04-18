@@ -8,8 +8,13 @@ export const ColorsScreen = ({navigation}) =>  {
       <ScrollView style={TrainingTableStyle.ScrollView}>
       <View style={TrainingTableStyle.container}> 
       <HeadLine/>
-       <TouchableOpacity
-          onPress={() => navigation.navigate('Recording')}
+      <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('Recording2test',{
+              itemId: 'כחול',
+              imageName: 'blue',
+            });
+          }}
           style={TrainingTableStyle.imageButton}>
           <Image
             style={TrainingTableStyle.image} source={require('../assets/blue.png')}

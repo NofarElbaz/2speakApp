@@ -20,10 +20,10 @@ import {QuestionWordsScreen} from '../screens/QuestionWordsScreen';
 import {ConjunctionsScreen} from '../screens/ConjunctionsScreen';
 import {PrepositionsScreen} from '../screens/PrepositionsScreen';
 import {RecordingScreen} from '../screens/RecordingScreen';
+import {RecordingScreen2test} from '../screens/RecordingScreen2test';
 import {AdverbScreen} from '../screens/Adverb';
 import {Guide} from '../screens/Guide';
 import { AddCategory } from '../screens/AddCategory';
-
 
 const Stack = createStackNavigator();
 
@@ -50,6 +50,7 @@ export const Navigation = () => {
       <Stack.Screen name = "Conjunctions" component={ConjunctionsScreen} />
       <Stack.Screen name = "Prepositions" component={PrepositionsScreen} />
       <Stack.Screen name = "Recording" component={RecordingScreen} />
+      <Stack.Screen name = "Recording2test" component={RecordingScreen2test} />
       <Stack.Screen name = "Adverb" component={AdverbScreen} />
       <Stack.Screen name = "Guide" component={Guide} />
       <Stack.Screen name = "AddCategory" component={AddCategory} />
