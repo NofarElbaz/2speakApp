@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import AppLoading from 'expo-app-loading'
 import * as Font from 'expo-font'
 import {Navigation} from './Navigation'

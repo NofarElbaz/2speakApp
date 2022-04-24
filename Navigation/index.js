@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator} from '@react-navigation/stack';
+import { createNativeStackNavigator} from '@react-navigation/native-stack';
+//screens
 import {FirstHomeScreen} from "../screens/FirstHomeScreen";
 import {TrainingScreen} from '../screens/TrainingScreen';
 import {FruitsScreen} from '../screens/FruitsScreen';
@@ -23,37 +24,44 @@ import {RecordingScreen} from '../screens/RecordingScreen';
 import {AdverbScreen} from '../screens/Adverb';
 import {Guide} from '../screens/Guide';
 import { AddCategory } from '../screens/AddCategory';
+//realm
+import { RealmProvider } from '../mongoDB/Word'
 
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 export const Navigation = () => {
+  if (!RealmProvider) {
+    return null;
+  }
   return(
-    <NavigationContainer>
-    <Stack.Navigator>
-      <Stack.Screen name = "FirstHome" component={FirstHomeScreen} />
-      <Stack.Screen name = "Training" component={TrainingScreen} />
-      <Stack.Screen name = "Fruits" component={FruitsScreen} />
-      <Stack.Screen name = "Animals" component={AnimalsScreen} />
-      <Stack.Screen name = "Numbers" component={NumbersScreen} />
-      <Stack.Screen name = "Pronoun" component={PronounScreen} />
-      <Stack.Screen name = "Shapes" component={ShapesScreen} />
-      <Stack.Screen name = "Vegetables" component={VegetablesScreen} />
-      <Stack.Screen name = "Vehicles" component={VehicleScreen} />
-      <Stack.Screen name = "Colors" component={ColorsScreen} />
-      <Stack.Screen name = "Nouns" component={NounsScreen} />
-      <Stack.Screen name = "Feelings" component={FeelingsScreen} />
-      <Stack.Screen name = "Adjective" component={AdjectiveScreen} />
-      <Stack.Screen name = "BodyParts" component={BodyPartsScreen} />
-      <Stack.Screen name = "Verbs" component={VerbsScreen} />
-      <Stack.Screen name = "QuestionWords" component={QuestionWordsScreen} />
-      <Stack.Screen name = "Conjunctions" component={ConjunctionsScreen} />
-      <Stack.Screen name = "Prepositions" component={PrepositionsScreen} />
-      <Stack.Screen name = "Recording" component={RecordingScreen} />
-      <Stack.Screen name = "Adverb" component={AdverbScreen} />
-      <Stack.Screen name = "Guide" component={Guide} />
-      <Stack.Screen name = "AddCategory" component={AddCategory} />
-    </Stack.Navigator>
+    <RealmProvider>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="FirstHome">
+        <Stack.Screen name = "FirstHome" component={FirstHomeScreen} />
+        <Stack.Screen name = "Training" component={TrainingScreen} />
+        <Stack.Screen name = "Fruits" component={FruitsScreen} />
+        <Stack.Screen name = "Animals" component={AnimalsScreen} />
+        <Stack.Screen name = "Numbers" component={NumbersScreen} />
+        <Stack.Screen name = "Pronoun" component={PronounScreen} />
+        <Stack.Screen name = "Shapes" component={ShapesScreen} />
+        <Stack.Screen name = "Vegetables" component={VegetablesScreen} />
+        <Stack.Screen name = "Vehicles" component={VehicleScreen} />
+        <Stack.Screen name = "Colors" component={ColorsScreen} />
+        <Stack.Screen name = "Nouns" component={NounsScreen} />
+        <Stack.Screen name = "Feelings" component={FeelingsScreen} />
+        <Stack.Screen name = "Adjective" component={AdjectiveScreen} />
+        <Stack.Screen name = "BodyParts" component={BodyPartsScreen} />
+        <Stack.Screen name = "Verbs" component={VerbsScreen} />
+        <Stack.Screen name = "QuestionWords" component={QuestionWordsScreen} />
+        <Stack.Screen name = "Conjunctions" component={ConjunctionsScreen} />
+        <Stack.Screen name = "Prepositions" component={PrepositionsScreen} />
+        <Stack.Screen name = "Recording" component={RecordingScreen} />
+        <Stack.Screen name = "Adverb" component={AdverbScreen} />
+        <Stack.Screen name = "Guide" component={Guide} />
+        <Stack.Screen name = "AddCategory" component={AddCategory} />
+      </Stack.Navigator>
     </NavigationContainer>
+  </RealmProvider>
 );   
 };

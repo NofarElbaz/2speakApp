@@ -68,7 +68,8 @@ export const RecordingScreen = () => {
   }
 
   async function playRecording() {
-    console.log("play recording...");
+    if(recordingUri != 'none'){
+      console.log("play recording...");
     //console.log( recording.getURI());
     const { sound } = await Audio.Sound.createAsync(
       {uri: recordingUri.getURI() }
@@ -78,6 +79,12 @@ export const RecordingScreen = () => {
     await sound.playAsync();
     ToastAndroid.showWithGravity
     ('ההקלטה בוצעה בהצלחה\nלחיצה על כפתור אישור תישמור את ההקלטה\nלחיצה על כפתור האשפה תמחוק את ההקלטה',ToastAndroid.LONG,ToastAndroid.CENTER);
+    }
+    else{
+      ToastAndroid.showWithGravity
+      ('עליך קודם לבצע הקלטה',ToastAndroid.SHORT,ToastAndroid.CENTER);
+
+    }
   }
 
   function saveRecordingInDB(){
@@ -140,6 +147,12 @@ export const RecordingScreen = () => {
 
       <View style={style.recordIconStack}>
 
+      <IconButton
+          icon="play"
+          color={"#addfd5"}
+          size={45}
+          onPress={() => playRecording()}
+        />
         <IconButton
           icon="check"
           color={"#addfd5"}
@@ -173,6 +186,7 @@ export const RecordingScreen = () => {
     },
     pressableStyle: {
       borderRadius: 0,
+      //flexDirection: 'row',
       padding: 2,
       //height: windowH/12,
       width: windowW/5,
