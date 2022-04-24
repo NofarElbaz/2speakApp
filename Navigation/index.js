@@ -21,6 +21,7 @@ import {QuestionWordsScreen} from '../screens/QuestionWordsScreen';
 import {ConjunctionsScreen} from '../screens/ConjunctionsScreen';
 import {PrepositionsScreen} from '../screens/PrepositionsScreen';
 import {RecordingScreen} from '../screens/RecordingScreen';
+import {RecordingScreen2test} from '../screens/RecordingScreen2test';
 import {AdverbScreen} from '../screens/Adverb';
 import {Guide} from '../screens/Guide';
 import { AddCategory } from '../screens/AddCategory';
