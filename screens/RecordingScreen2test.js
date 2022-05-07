@@ -80,7 +80,7 @@ export const RecordingScreen2test = ({ route, navigation }) => {
     console.log("Playing Sound");
     await sound.playAsync();
     ToastAndroid.showWithGravity
-    ('ההקלטה בוצעה בהצלחה\nלחיצה על כפתור אישור תישמור את ההקלטה\nלחיצה על כפתור האשפה תמחוק את ההקלטה',ToastAndroid.LONG,ToastAndroid.CENTER);
+    ('ההקלטה בוצעה בהצלחה\nלחיצה על "וי" - תשמור את ההקלטה\nלחיצה על "איקס" - תמחוק את ההקלטה',ToastAndroid.LONG,ToastAndroid.CENTER);
   }
 
   function saveRecordingInDB(){
@@ -121,38 +121,56 @@ export const RecordingScreen2test = ({ route, navigation }) => {
     textLog = 'onPress';
   }
 
+  function printConsole () {
+    console.log('Pressable Called.....')
+  }
+
   return (
     <View style = {style.container}>
-      <Text>פרטים</Text>
-      <Text>הקלט: {JSON.stringify(itemId)}</Text>
-      <Image source={{uri: imagePath }}></Image>
+      <Text style={style.text1}>הקלט את המילה</Text>
+      <Text style={style.text2}>{itemId}</Text>
       <View style={style.pressableStyle}>
         <Pressable
+
+          //Called after onPressOut.
+          onPress={() =>{printConsole();}}
+
+          //Called immediately when a touch is engaged, before onPressOut and onPress.
           onPressIn={() => {
           setTimesPressed(current => current + 1);
           startRecording();
           }}
           style={({ pressed }) => [{
-            backgroundColor: pressed ? 'red' : 'white'},
+            backgroundColor: pressed ? '#64C0B5' : '#64C0B5'},
           ]}
-          onPressOut={
-            ()=> {if(savedRecordings<10){stopRecording ()}}}>
-          {({ pressed }) => <Text>{pressed ? 'שחרר כדי לעצור' : 'הקלט'}</Text>}
+
+          //Called when a touch is released.
+          onPressOut={()=> {
+            if(savedRecordings<10)
+            {stopRecording ()}}}>
+          {({ pressed }) => <Text style={style.button_text}>{pressed ? 'שחרר כדי לעצור' : 'הקלט'}</Text>}
         </Pressable>
-
       </View>
-
       <View style={style.recordIconStack}>
-
+        <IconButton
+          icon="refresh"
+         // icon="microphone",
+          //color={"#addfd5"}
+          color={'#64C0B5'}
+          size={45}
+          onPress={() => playRecording()}
+        />
         <IconButton
           icon="check"
-          color={"#addfd5"}
+          //color={"#addfd5"}
+          color={'#64C0B5'}
+          //color={'white'}
           size={45}
           onPress={() => saveRecordingInDB()}
         />
         <IconButton
-          icon="delete"
-          color={"#addfd5"}
+          icon="close"
+          color={'#64C0B5'}
           size={45}
           onPress={() => deleteRecording()}
         />
@@ -163,31 +181,88 @@ export const RecordingScreen2test = ({ route, navigation }) => {
 }
   const style = StyleSheet.create({
     container: {
-        backgroundColor: 'white',
+        //backgroundColor: 'white',
+        backgroundColor:'#E4FAF5',
         flex :1
     },
     recordIconStack: {
       flex:1,
       justifyContent:'center',
       flexDirection: 'row',
-        //marginTop: "60%",
-        //marginLeft: "19%",
-      
+      marginTop: "15%",
+      //marginLeft: "19%",
+      //flexDirection:'row',
+      justifyContent: 'space-between',
+      marginHorizontal: 30,
+    
     },
     pressableStyle: {
-      borderRadius: 0,
+      borderRadius: 100,
+      marginTop: "55%",
       padding: 2,
-      //height: windowH/12,
-      width: windowW/5,
-      justifyContent: 'flex-end',
+      height: windowH/6.8,
+      width: windowW/3.5,
+      //width: windowW/6,
+      //justifyContent: 'flex-end',
+      justifyContent:'center',
       alignItems: 'center',
-      //elevation: 5,
-      borderWidth: 3, //Frame thickness
-      borderColor: "#cde8e1",
-      //marginTop: '90%',
+      elevation: 15,
+      borderWidth: 2, //Frame thickness
+      //borderColor: "#cde8e1",
+      //color:"#64C0B5",
+      //borderColor: "#64C0B5",
+      borderColor: "white",
+      backgroundColor:"#64C0B5",
       marginLeft: windowW/2.7,
       textAlign: "center",
-  
+    },
+    text1:{
+      fontFamily: "verdana",
+      color: "#64C0B5",
+      fontWeight: 'bold',
+      textAlign: "center",
+      fontSize :30,
+      marginTop : '13%',
+      //marginBottom: '60%',
+    },
+    text2:{
+      fontFamily: "verdana",
+      color: "#64C0B5",
+      fontWeight: 'bold',
+      textAlign: "center",
+      fontSize :48,
+      marginTop : '7%',
+      //textDecorationLine: 'underline',
+      //textShadowColor:'white',
+      //textShadowOffset:{width: 5, height: 5},
+      //textShadowRadius:10,
+      //marginBottom: '60%',
+      //borderRadius: 5,
+      // Set border width.
+      //borderWidth: 2,
+      // Set border Hex Color Code Here.
+      //borderColor: '#FF5722',
+      // Setting up Text Font Color.
+      //color: '#fff',
+      // Setting Up Background Color of Text component.
+      //backgroundColor : '#CDDC39',
+    },
+    button_text:{
+      fontFamily: "verdana",
+      color: "white",
+      fontWeight: 'bold',
+      textAlign: "center",
+      fontSize :18,
+      //borderRadius: 5,
+      // Set border width.
+      //borderWidth: 2,
+      // Set border Hex Color Code Here.
+      //borderColor: '#FF5722',
+      //marginTop : '7%'
+      //borderRadius: 100,
+      //marginTop: "60%",
+      //padding: 3,
+      //marginBottom: '60%',
     }
 
 });

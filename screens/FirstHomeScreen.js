@@ -19,7 +19,7 @@ export const FirstHomeScreen = ({navigation}) => {
           onPress={() => navigation.navigate('Training')}
           color='#64C0B5'/>
         <Button title="תרגום"
-          onPress={() => navigation.navigate('FirstHome')}
+          onPress={() => navigation.navigate('Trans')}
           color='#64C0B5'/>
         </View>
       </ImageBackground>

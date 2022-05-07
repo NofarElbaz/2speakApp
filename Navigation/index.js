@@ -25,18 +25,14 @@ import {RecordingScreen2test} from '../screens/RecordingScreen2test';
 import {AdverbScreen} from '../screens/Adverb';
 import {Guide} from '../screens/Guide';
 import { AddCategory } from '../screens/AddCategory';
-//realm
-import { RealmProvider } from '../mongoDB/Word'
+import { TranslatingScreen } from '../screens/TranslatingScreen'
 
 
 const Stack = createNativeStackNavigator();
 
 export const Navigation = () => {
-  if (!RealmProvider) {
-    return null;
-  }
+
   return(
-    <RealmProvider>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="FirstHome">
         <Stack.Screen name = "FirstHome" component={FirstHomeScreen} />
@@ -58,11 +54,12 @@ export const Navigation = () => {
         <Stack.Screen name = "Conjunctions" component={ConjunctionsScreen} />
         <Stack.Screen name = "Prepositions" component={PrepositionsScreen} />
         <Stack.Screen name = "Recording" component={RecordingScreen} />
+        <Stack.Screen name = "Recording2test" component={RecordingScreen2test} />
         <Stack.Screen name = "Adverb" component={AdverbScreen} />
         <Stack.Screen name = "Guide" component={Guide} />
         <Stack.Screen name = "AddCategory" component={AddCategory} />
+        <Stack.Screen name = "Trans" component={TranslatingScreen} />
       </Stack.Navigator>
     </NavigationContainer>
-  </RealmProvider>
 );   
 };
