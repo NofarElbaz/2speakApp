@@ -1,13 +1,19 @@
+
 import React, {useState} from 'react';
-import { StyleSheet, View, TextInput , Button, Image ,KeyboardAvoidingView, ScrollView } from 'react-native';
+import { StyleSheet, View, TextInput , Button, Image , ToastAndroid } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import { storeCategory } from '../backend/http';
 
 
-export const AddCategory = () => {
+export function AddCategory ({route}){
+  const { userID } = route.params;
+  //const user = JSON.stringify(userID)
+  //console.log("check userID FORMAT :" + user)
+  //console.log("check userID FORMAT :" + userID)
 
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState(null); //image URI
   const [text, onChangeText] = React.useState("Useless Text");
-  const [imageUri , setImageUri] = useState(null);
+
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -17,16 +23,33 @@ export const AddCategory = () => {
       quality: 1,
     });
 
-    console.log(result);
-
     if (!result.cancelled) {
       setImage(result.uri);
     }
   };
 
-  function categoryInputHandler(categoryInput){
-    //שינוי מצב בהתאם לקלט כדי שישמר קלט סופי
+  function saveCategory(){
+  
+    const data = {
+      categoryName : text ,
+      imageURI : image
+    }
+    console.log("category: " + text)
+    console.log("imageurl: " + image)
 
+    if (text == "Useless Text" || text == ""){
+      ToastAndroid.showWithGravity
+        ('הוסף שם קטגוריה',ToastAndroid.SHORT,ToastAndroid.CENTER);
+
+    }
+    else if (image == null ){
+      ToastAndroid.showWithGravity
+        ('יש לבחור תמונה',ToastAndroid.SHORT,ToastAndroid.CENTER);
+    }
+    else{
+      //console.log("imageURL:" + image + "    userID:" + user + "    catName:"+text)
+      storeCategory(userID,data)
+    }  
   }
 
   return(
@@ -34,35 +57,28 @@ export const AddCategory = () => {
       <View style={styles.textContainer} >
         <TextInput style={styles.textStyle}
             placeholder='הקלד קטגוריה...'
-            //onChangeText={onChangeText}
+            onChangeText={onChangeText}
         />
       </View>
       <View style={styles.buttonStyle}>
         <Button title="העלאת תמונה מהמכשיר" onPress={pickImage} color="#64c0b5" />
       </View>
         {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
-        <Button title="הוסף קטגוריה" color="#8ad2c6"/>
+        <Button title="הוסף קטגוריה" onPress={saveCategory} color="#8ad2c6"/>
     </View>    
   )
 
 }
 
 const styles = StyleSheet.create({
-  screen:{
-    flex:1
-  },
   container:{
     flex:1,
     backgroundColor: '#E4FAF5',
     justifyContent: 'center',
     alignItems: 'center',
-    
-    
   },
   textContainer:{
-    //alignItems: 'center',
     flexDirection:'row',
-    //justifyContent: 'space-evenly',
     paddingBottom: 20,
   },
   textStyle:{
@@ -71,12 +87,9 @@ const styles = StyleSheet.create({
     width:'50%',
   },
   buttonStyle:{
-    //alignItems: 'center',
     flexDirection:'row',
     justifyContent: 'space-evenly',
     paddingBottom: 20
   }
-
-
 
 })

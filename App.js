@@ -1,8 +1,13 @@
+
 import React from 'react'
 import AppLoading from 'expo-app-loading'
 import * as Font from 'expo-font'
 import {Navigation} from './Navigation'
 import 'expo-dev-client'
+import * as Application from 'expo-application';
+
+export const deviceID = Application.androidId
+console.log("run on deviceID:" ,deviceID)
 
 
 const fetchFonts = () => {
@@ -30,4 +35,5 @@ export default function App() {
   };
   return(<Navigation/>);
 }
+
 
