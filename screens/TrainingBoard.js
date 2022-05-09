@@ -1,14 +1,17 @@
-import React , {useState} from 'react';
-import { Image, View ,TouchableOpacity,ScrollView,SafeAreaView , Button} from 'react-native';
+
+import React  from 'react';
+import { Image ,TouchableOpacity,ScrollView,SafeAreaView , Button} from 'react-native';
 import { TrainingTableStyle } from '../Styles/TrainingTableStyle';
+import { deviceID } from '../App';
 
-export const  TrainingScreen = ({navigation}) => { 
-
-    
+export const TrainingBoard = ({navigation}) => { 
   return (
       <ScrollView style={TrainingTableStyle.ScrollView}>
-        <Button title='הוספת קטגוריה' color='#64c0b5' onPress={() => navigation.navigate('AddCategory')} />
+        <Button title='הוספת קטגוריה' color='#64c0b5' onPress={() => navigation.navigate('AddCategory',{userID: deviceID})} />
       <SafeAreaView style={TrainingTableStyle.container}> 
+      
+
+      
        <TouchableOpacity
           onPress={() => navigation.navigate('Pronoun')}
           style={TrainingTableStyle.imageButton}>
@@ -145,6 +148,8 @@ export const  TrainingScreen = ({navigation}) => {
             resizeMode="cover"
           />
         </TouchableOpacity>
+
+        
       </SafeAreaView>
       </ScrollView>
 
@@ -152,5 +157,3 @@ export const  TrainingScreen = ({navigation}) => {
       
     );
   }
-
-  
