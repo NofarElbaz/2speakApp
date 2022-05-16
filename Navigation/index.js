@@ -5,7 +5,6 @@ import { createNativeStackNavigator} from '@react-navigation/native-stack';
 //screens
 import {Home} from "../screens/Home";
 import {GuidingVideo} from '../screens/GuidingVideo';
-import {TrainingBoard} from '../screens/TrainingBoard';
 import { AddCategory } from '../screens/AddCategory';
 import { AddWord } from '../screens/AddWord';
 import { AllCategorys } from '../screens/AllCategorys';
@@ -23,7 +22,6 @@ export const Navigation = () => {
         <Stack.Navigator initialRouteName="FirstHome">
         <Stack.Screen name = "Home" component={Home} />
         <Stack.Screen name = "Video" component={GuidingVideo} />
-        <Stack.Screen name = "Training" component={TrainingBoard} />
         <Stack.Screen name = "AllCategories" component={AllCategorys} />
         <Stack.Screen name = "AddCategory" component={AddCategory} />
         <Stack.Screen name = "AddWord" component={AddWord} />
