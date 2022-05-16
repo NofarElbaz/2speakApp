@@ -1,6 +1,12 @@
 
 import React from "react";
 import {StyleSheet,View,Button,ImageBackground,Dimensions} from "react-native";
+import * as Application from 'expo-application';
+import {STATIC_CATEGORY} from '../staticData/staticCategoreis'
+
+
+export const userID = Application.androidId
+console.log("run on deviceID:" ,userID)
 
 const windowH = Dimensions.get('window').height;
 
@@ -13,10 +19,11 @@ export const Home = ({navigation}) => {
           onPress={() => navigation.navigate('Video')}
           color='#64C0B5'/>
           <Button title="לוח אימון"
-          onPress={() => navigation.navigate('Training')}
+          onPress={() => navigation.navigate('AllCategories',{STATIC_CATEGORY,userID})}
+          //onPress={() => navigation.navigate("Training")}
           color='#64C0B5'/>
         <Button title="תרגום"
-          onPress={() => navigation.navigate('Trans')}
+          onPress={() => navigation.navigate('Translate')}
           color='#64C0B5'/>
         </View>
       </ImageBackground>

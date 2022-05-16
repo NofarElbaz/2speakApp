@@ -4,21 +4,17 @@ import { IconButton } from 'react-native-paper';
 import React , { useState } from 'react'; 
 import { Audio } from 'expo-av';
 
-
+//
 const windowW= Dimensions.get('window').width;
 const windowH = Dimensions.get('window').height;
 
-export const RecordingScreen2test = ({ route, navigation }) => {
+export const Recording = ({ route, navigation }) => {
   const [recordingUri, setRecordingUri] = useState("none");
   const [savedRecordings, setSavedRecordings] = useState(1);
-  const [recordingStarted,setRecordingStarted] = useState("false");
-  const [recordingStopped , setRecordingStopped] = useState("false");
-  const { itemId, imagePath } = route.params;
-
-  //const [saveRecording , setSaveRecording] = useState("false");
+  const { userID,wordName,categoryName,image} = route.params;
+  const [timesPressed, setTimesPressed] = useState(0);
 
   async function startRecording() {
-    //console.log(savedRecordings)
     if(savedRecordings < 10){
       //console.log(recordingUri)
       //console.log(savedRecordings)
@@ -85,8 +81,10 @@ export const RecordingScreen2test = ({ route, navigation }) => {
 
   function saveRecordingInDB(){
     if(recordingUri != 'none'){
+        //add save in DB use {userID,categoryName}
+        //לשנות את ההקלטות ששמורות לפי גודל מערך ההקלטות במבנה הנתונים 
         setSavedRecordings(savedRecordings+1)
-        //add save in mongoDB
+    
         ToastAndroid.showWithGravity
       ('ההקלטה נשמרה',ToastAndroid.SHORT,ToastAndroid.CENTER);
       console.log(savedRecordings)
@@ -112,7 +110,7 @@ export const RecordingScreen2test = ({ route, navigation }) => {
     }
   }
 
-  const [timesPressed, setTimesPressed] = useState(0);
+
 
   let textLog = '';
   if (timesPressed > 1) {
@@ -128,7 +126,11 @@ export const RecordingScreen2test = ({ route, navigation }) => {
   return (
     <View style = {style.container}>
       <Text style={style.text1}>הקלט את המילה</Text>
-      <Text style={style.text2}>{itemId}</Text>
+      <Text style={style.text2}>{wordName}</Text>
+      <Image
+                source={{uri: image}}
+                resizeMode="cover"
+            />
       <View style={style.pressableStyle}>
         <Pressable
 
@@ -175,13 +177,11 @@ export const RecordingScreen2test = ({ route, navigation }) => {
           onPress={() => deleteRecording()}
         />
       </View>
-      
     </View> 
   )
 }
   const style = StyleSheet.create({
     container: {
-        //backgroundColor: 'white',
         backgroundColor:'#E4FAF5',
         flex :1
     },
@@ -190,8 +190,6 @@ export const RecordingScreen2test = ({ route, navigation }) => {
       justifyContent:'center',
       flexDirection: 'row',
       marginTop: "15%",
-      //marginLeft: "19%",
-      //flexDirection:'row',
       justifyContent: 'space-between',
       marginHorizontal: 30,
     
@@ -202,15 +200,10 @@ export const RecordingScreen2test = ({ route, navigation }) => {
       padding: 2,
       height: windowH/6.8,
       width: windowW/3.5,
-      //width: windowW/6,
-      //justifyContent: 'flex-end',
       justifyContent:'center',
       alignItems: 'center',
       elevation: 15,
       borderWidth: 2, //Frame thickness
-      //borderColor: "#cde8e1",
-      //color:"#64C0B5",
-      //borderColor: "#64C0B5",
       borderColor: "white",
       backgroundColor:"#64C0B5",
       marginLeft: windowW/2.7,
@@ -223,7 +216,6 @@ export const RecordingScreen2test = ({ route, navigation }) => {
       textAlign: "center",
       fontSize :30,
       marginTop : '13%',
-      //marginBottom: '60%',
     },
     text2:{
       fontFamily: "verdana",
@@ -232,20 +224,6 @@ export const RecordingScreen2test = ({ route, navigation }) => {
       textAlign: "center",
       fontSize :48,
       marginTop : '7%',
-      //textDecorationLine: 'underline',
-      //textShadowColor:'white',
-      //textShadowOffset:{width: 5, height: 5},
-      //textShadowRadius:10,
-      //marginBottom: '60%',
-      //borderRadius: 5,
-      // Set border width.
-      //borderWidth: 2,
-      // Set border Hex Color Code Here.
-      //borderColor: '#FF5722',
-      // Setting up Text Font Color.
-      //color: '#fff',
-      // Setting Up Background Color of Text component.
-      //backgroundColor : '#CDDC39',
     },
     button_text:{
       fontFamily: "verdana",
@@ -253,39 +231,6 @@ export const RecordingScreen2test = ({ route, navigation }) => {
       fontWeight: 'bold',
       textAlign: "center",
       fontSize :18,
-      //borderRadius: 5,
-      // Set border width.
-      //borderWidth: 2,
-      // Set border Hex Color Code Here.
-      //borderColor: '#FF5722',
-      //marginTop : '7%'
-      //borderRadius: 100,
-      //marginTop: "60%",
-      //padding: 3,
-      //marginBottom: '60%',
     }
 
 });
-
-/*
-
-  <IconButton
-          icon="record"
-          color={"#addfd5"}
-          size={45}
-          onPress={() => startRecording() }
-        />
-        <IconButton
-          icon="stop"
-          color={"#addfd5"}
-          size={45}
-          onPress={() => stopRecording ()}
-        />
-          <IconButton 
-          icon="play"
-          color={"#addfd5"}
-          size={45}
-          onPress={() => playRecording()}
-        />
-
-*/

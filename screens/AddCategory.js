@@ -3,14 +3,13 @@ import React, {useState} from 'react';
 import { StyleSheet, View, TextInput , Button, Image , ToastAndroid } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { storeCategory } from '../backend/http';
+import { STATIC_CATEGORY } from '../staticData/staticCategoreis';
 
 
-export function AddCategory ({route}){
+
+export function AddCategory ({route,navigation}){
+  //console.log(route.params)
   const { userID } = route.params;
-  //const user = JSON.stringify(userID)
-  //console.log("check userID FORMAT :" + user)
-  //console.log("check userID FORMAT :" + userID)
-
   const [image, setImage] = useState(null); //image URI
   const [text, onChangeText] = React.useState("Useless Text");
 
@@ -29,28 +28,29 @@ export function AddCategory ({route}){
   };
 
   function saveCategory(){
-  
+    //console.log("hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
     const data = {
-      categoryName : text ,
-      imageURI : image
+      category : text ,
+      image : image
     }
-    console.log("category: " + text)
-    console.log("imageurl: " + image)
 
     if (text == "Useless Text" || text == ""){
       ToastAndroid.showWithGravity
         ('הוסף שם קטגוריה',ToastAndroid.SHORT,ToastAndroid.CENTER);
+        return 1
 
     }
     else if (image == null ){
       ToastAndroid.showWithGravity
         ('יש לבחור תמונה',ToastAndroid.SHORT,ToastAndroid.CENTER);
+        return 1
     }
-    else{
-      //console.log("imageURL:" + image + "    userID:" + user + "    catName:"+text)
       storeCategory(userID,data)
-    }  
-  }
+      STATIC_CATEGORY.push(data)
+      navigation.navigate("AllCategories",{STATIC_CATEGORY,userID})
+     
+  }  
+  
 
   return(
     <View style={styles.container}>
@@ -64,7 +64,8 @@ export function AddCategory ({route}){
         <Button title="העלאת תמונה מהמכשיר" onPress={pickImage} color="#64c0b5" />
       </View>
         {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
-        <Button title="הוסף קטגוריה" onPress={saveCategory} color="#8ad2c6"/>
+        <Button title="הוסף קטגוריה"  onPress={saveCategory} color="#8ad2c6"/>
+
     </View>    
   )
 
