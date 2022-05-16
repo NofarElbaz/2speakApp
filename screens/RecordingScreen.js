@@ -7,8 +7,8 @@ import { Audio } from 'expo-av';
 
 const windowW= Dimensions.get('window').width;
 const windowH = Dimensions.get('window').height;
-
-export const RecordingScreen = () => {
+// props - {user,wordName,image} 
+export const RecordingScreen = (props) => {
   const [recordingUri, setRecordingUri] = useState("none");
   const [savedRecordings, setSavedRecordings] = useState(1);
   const [recordingStarted,setRecordingStarted] = useState("false");

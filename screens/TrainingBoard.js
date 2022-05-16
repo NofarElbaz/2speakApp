@@ -1,16 +1,29 @@
 
 import React  from 'react';
-import { Image ,TouchableOpacity,ScrollView,SafeAreaView , Button} from 'react-native';
+import { Image ,TouchableOpacity,ScrollView,SafeAreaView , Button , FlatList} from 'react-native';
 import { TrainingTableStyle } from '../Styles/TrainingTableStyle';
-import { deviceID } from '../App';
-
+import { userID } from './Home';
+const APP_CATEGORIES = [{id: 'dummy1'}]
 export const TrainingBoard = ({navigation}) => { 
+
+  
   return (
       <ScrollView style={TrainingTableStyle.ScrollView}>
-        <Button title='הוספת קטגוריה' color='#64c0b5' onPress={() => navigation.navigate('AddCategory',{userID: deviceID})} />
+        <Button title='הוספת קטגוריה' color='#64c0b5' onPress={() => navigation.navigate('AddCategory',{userID: userID})} />
       <SafeAreaView style={TrainingTableStyle.container}> 
       
-
+      {/* {
+        categories.map(cateogry => {
+          return    <TouchableOpacity
+          onPress={() => navigation.navigate(cateogry.name)}
+          style={cateogry.imageButton}>
+          <Image
+            style={TrainingTableStyle.image} source={cateogry.imageUrl)}
+            resizeMode="cover"
+          />
+        </TouchableOpacity>
+        })
+      } */}
       
        <TouchableOpacity
           onPress={() => navigation.navigate('Pronoun')}
@@ -149,11 +162,8 @@ export const TrainingBoard = ({navigation}) => {
           />
         </TouchableOpacity>
 
-        
       </SafeAreaView>
       </ScrollView>
-
-
       
     );
   }
