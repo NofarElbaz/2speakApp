@@ -11,6 +11,8 @@ const windowH = Dimensions.get('window').height;
 export const Recording = ({ route, navigation }) => {
   const [recordingUri, setRecordingUri] = useState("none");
   const [savedRecordings, setSavedRecordings] = useState(1);
+  const [recordingStarted,setRecordingStarted] = useState("false");
+  const [recordingStopped , setRecordingStopped] = useState("false");
   const { userID,wordName,categoryName,image} = route.params;
   const [timesPressed, setTimesPressed] = useState(0);
 
@@ -127,13 +129,8 @@ export const Recording = ({ route, navigation }) => {
     <View style = {style.container}>
       <Text style={style.text1}>הקלט את המילה</Text>
       <Text style={style.text2}>{wordName}</Text>
-      <Image
-                source={{uri: image}}
-                resizeMode="cover"
-            />
       <View style={style.pressableStyle}>
         <Pressable
-
           //Called after onPressOut.
           onPress={() =>{printConsole();}}
 
@@ -196,7 +193,7 @@ export const Recording = ({ route, navigation }) => {
     },
     pressableStyle: {
       borderRadius: 100,
-      marginTop: "55%",
+      marginTop: "20%",
       padding: 2,
       height: windowH/6.8,
       width: windowW/3.5,
