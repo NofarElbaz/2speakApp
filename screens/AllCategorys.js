@@ -2,8 +2,6 @@ import {ScrollView,SafeAreaView ,Button} from "react-native"
 import {CategoryItem} from '../components/CategoryItem'
 import {TrainingTableStyle} from '../Styles/TrainingTableStyle'
 
-
-//
 function renderCategoryItem({category , user} ){
 
     return <CategoryItem key={category.category} categoryName = {category.category} imageURI={category.image} userID={user}/>
