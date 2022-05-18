@@ -2,8 +2,8 @@
 import React, {useState} from 'react';
 import { StyleSheet, View, TextInput , Button, Image , ToastAndroid } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import { storeCategory } from '../backend/http';
 import { STATIC_CATEGORY } from '../staticData/staticCategoreis';
+import { BACKEND_URL, patchNewCategory } from '../DB/DBcommunication';
 
 
 
@@ -29,10 +29,7 @@ export function AddCategory ({route,navigation}){
 
   function saveCategory(){
     //console.log("hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
-    const data = {
-      category : text ,
-      image : image
-    }
+  
 
     if (text == "Useless Text" || text == ""){
       ToastAndroid.showWithGravity
@@ -45,9 +42,9 @@ export function AddCategory ({route,navigation}){
         ('יש לבחור תמונה',ToastAndroid.SHORT,ToastAndroid.CENTER);
         return 1
     }
-      storeCategory(userID,data)
-      STATIC_CATEGORY.push(data)
-      navigation.navigate("AllCategories",{STATIC_CATEGORY,userID})
+
+    patchNewCategory({userID:userID,categoryName:text,image:image})
+    navigation.navigate("AllCategories",{STATIC_CATEGORY,userID})
      
   }  
   

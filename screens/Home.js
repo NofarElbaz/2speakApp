@@ -3,14 +3,18 @@ import React from "react";
 import {StyleSheet,View,Button,ImageBackground,Dimensions} from "react-native";
 import * as Application from 'expo-application';
 import {STATIC_CATEGORY} from '../staticData/staticCategoreis'
-
+import {postCategoreis,postWords } from "../DB/DBcommunication";
 
 export const userID = Application.androidId
 console.log("run on deviceID:" ,userID)
-
 const windowH = Dimensions.get('window').height;
 
+
 export const Home = ({navigation}) => {
+  
+  postCategoreis()
+  postWords()
+
   return (
     <View style = {styles.container}>
       <ImageBackground source={require('../assets/homeScreenBackground.png')} style={styles.image}>
