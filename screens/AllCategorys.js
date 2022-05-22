@@ -19,7 +19,7 @@ function renderFreeWordItem({wordDetails,user} ){
 
 
 export function AllCategorys ({route,navigation}) {
-    const {STATIC_CATEGORY,userID } = route.params;
+    const {userID } = route.params;
     const [catArr,setCatArr] = useState([]);
     const [wordArr,setWordArr] = useState([]);
     const [allCategories,setAllCategories] = useState({});

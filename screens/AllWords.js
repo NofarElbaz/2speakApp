@@ -41,6 +41,7 @@ export const AllWords = ({route,navigation}) => {
 
     return(
         <ScrollView style={TrainingTableStyle.ScrollView}>
+            <Button title='מחיקת קטגוריה' color='red' onPress={() => navigation.navigate('AllCategories',{userID: user})} />
             <Button title='הוספת מילה' color='#64c0b5' onPress={() => navigation.navigate('AddWord',{userID: user, categoryName:categoryName})} />
             <View style={TrainingTableStyle.container}> 
 
