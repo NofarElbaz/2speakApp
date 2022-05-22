@@ -1,10 +1,9 @@
-
-import { View, StyleSheet, ToastAndroid ,Image,Pressable ,Text ,Dimensions} from 'react-native';
+import { View, StyleSheet, ToastAndroid ,Image,Pressable ,Text ,Dimensions,Button} from 'react-native';
 import { IconButton } from 'react-native-paper';
 import React , { useState } from 'react'; 
 import { Audio } from 'expo-av';
 
-//
+
 const windowW= Dimensions.get('window').width;
 const windowH = Dimensions.get('window').height;
 
@@ -17,13 +16,13 @@ export const Recording = ({ route, navigation }) => {
   const [timesPressed, setTimesPressed] = useState(0);
 
   async function startRecording() {
-    if(savedRecordings < 10){
-      //console.log(recordingUri)
-      //console.log(savedRecordings)
+      //('ישנה הקלטה הממתינה להמשך ביצוע פעולות\nלחיצה על כפתור "וי" - תשמור את ההקלטה\nלחיצה על כפתור "איקס" - תמחוק את ההקלטה\nלחיצה על כפתור "חץ" - תשמיע שוב את ההקלטהל',ToastAndroid.SHORT,ToastAndroid.CENTER);
+    
+    if(savedRecordings < 11){
       if(recordingUri != 'none'){
         ToastAndroid.showWithGravity //to specify where the toast appears in the screen's layout.
-        ('לידיעתך ההקלטה האחרונה שבצעת לא נשמרה במערכת',ToastAndroid.SHORT,ToastAndroid.CENTER);
-        startR()
+        ('ישנה הקלטה הממתינה להמשך ביצוע פעולות',ToastAndroid.SHORT,ToastAndroid.CENTER);
+        //startR()
       } 
       else {
         startR()
@@ -51,6 +50,7 @@ export const Recording = ({ route, navigation }) => {
       );
       setRecordingUri(recording);
       console.log('Recording started');
+      
     } 
     catch (err) {
       console.error('Failed to start recording', err);
@@ -68,17 +68,39 @@ export const Recording = ({ route, navigation }) => {
   }
 
   async function playRecording() {
-    console.log("play recording...");
-    //console.log( recording.getURI());
-    //Audio.Sound - This class represents a sound corresponding to an Asset or URL, Returns: A newly constructed instance of Audio.Sound.
-    const { sound } = await Audio.Sound.createAsync(
-      {uri: recordingUri.getURI() }
-    );
-    //setRecording(recording);
-    console.log("Playing Sound");
-    await sound.playAsync();
-    ToastAndroid.showWithGravity
-    ('ההקלטה בוצעה בהצלחה\nלחיצה על "וי" - תשמור את ההקלטה\nלחיצה על "איקס" - תמחוק את ההקלטה',ToastAndroid.LONG,ToastAndroid.CENTER);
+    if(recordingUri != 'none'){
+      console.log("play recording...");
+      //console.log( recording.getURI());
+      //Audio.Sound - This class represents a sound corresponding to an Asset or URL, Returns: A newly constructed instance of Audio.Sound.
+      const { sound } = await Audio.Sound.createAsync(
+        {uri: recordingUri.getURI() }
+      );
+      //setRecording(recording);
+      console.log("Playing Sound");
+      await sound.playAsync();
+      ToastAndroid.showWithGravity
+      ('ההקלטה בוצעה בהצלחה\nלחיצה על כפתור "וי" - תשמור את ההקלטה\nלחיצה על כפתור "איקס" - תמחוק את ההקלטה\nלחיצה על כפתור "חץ" - תשמיע שוב את ההקלטה',ToastAndroid.LONG,ToastAndroid.CENTER);
+    }
+  }
+
+  async function playRecordingAgain() {
+    if(recordingUri != 'none'){
+      console.log("play recording...");
+      //console.log( recording.getURI());
+      //Audio.Sound - This class represents a sound corresponding to an Asset or URL, Returns: A newly constructed instance of Audio.Sound.
+      const { sound } = await Audio.Sound.createAsync(
+        {uri: recordingUri.getURI() }
+      );
+      //setRecording(recording);
+      console.log("Playing Sound");
+      await sound.playAsync();
+      ToastAndroid.showWithGravity
+      ('שמיעה חוזרת של ההקלטה האחרונה',ToastAndroid.LONG,ToastAndroid.CENTER);
+    }
+    else{
+      ToastAndroid.showWithGravity
+      ('לא ניתן לשמוע הקלטה טרם בוצעה',ToastAndroid.SHORT,ToastAndroid.CENTER);
+    }
   }
 
   function saveRecordingInDB(){
@@ -111,15 +133,14 @@ export const Recording = ({ route, navigation }) => {
       ToastAndroid.showWithGravity('לא ניתן למחוק הקלטה טרם בוצעה',ToastAndroid.SHORT,ToastAndroid.CENTER)
     }
   }
-
-
-
+/*
   let textLog = '';
   if (timesPressed > 1) {
     textLog = timesPressed + 'x onPress';
   } else if (timesPressed > 0) {
     textLog = 'onPress';
   }
+  */
 
   function printConsole () {
     console.log('Pressable Called.....')
@@ -127,27 +148,34 @@ export const Recording = ({ route, navigation }) => {
 
   return (
     <View style = {style.container}>
+      <Button title='מחיקת מילה' color='red' onPress={() => navigation.navigate('AllWords',{categoryName: categoryName,user: userID })} />
       <Text style={style.text1}>הקלט את המילה</Text>
       <Text style={style.text2}>{wordName}</Text>
+      
       <View style={style.pressableStyle}>
         <Pressable
+          
           //Called after onPressOut.
-          onPress={() =>{printConsole();}}
+          onPress={() =>{printConsole ()}}
 
           //Called immediately when a touch is engaged, before onPressOut and onPress.
           onPressIn={() => {
           setTimesPressed(current => current + 1);
           startRecording();
           }}
-          style={({ pressed }) => [{
-            backgroundColor: pressed ? '#64C0B5' : '#64C0B5'},
-          ]}
 
           //Called when a touch is released.
           onPressOut={()=> {
-            if(savedRecordings<10)
-            {stopRecording ()}}}>
-          {({ pressed }) => <Text style={style.button_text}>{pressed ? 'שחרר כדי לעצור' : 'הקלט'}</Text>}
+            if(savedRecordings<11)
+            {
+              stopRecording ()
+              
+            }
+              }}>
+          {({ pressed }) =>
+          //if(recordingUri != 'none'){}
+           //{recordingUri !== 'none'?<Text>Select a Photo</Text> :
+          <Text style={style.button_text}>{pressed && recordingUri === 'none'&&savedRecordings<11 ? 'שחרר כדי לעצור' : 'הקלט'}</Text>}
         </Pressable>
       </View>
       <View style={style.recordIconStack}>
@@ -157,7 +185,7 @@ export const Recording = ({ route, navigation }) => {
           //color={"#addfd5"}
           color={'#64C0B5'}
           size={45}
-          onPress={() => playRecording()}
+          onPress={() => playRecordingAgain()}
         />
         <IconButton
           icon="check"
@@ -231,3 +259,36 @@ export const Recording = ({ route, navigation }) => {
     }
 
 });
+
+
+
+/*
+<View style={style.pressableStyle}>
+        
+        <Pressable
+          
+          //Called after onPressOut.
+          onPress={() =>{playRecording();}}
+
+          //Called immediately when a touch is engaged, before onPressOut and onPress.
+          onPressIn={() => {
+          setTimesPressed(current => current + 1);
+          startRecording();
+          }}
+          style={({ pressed }) => [{
+            backgroundColor: pressed ? '#64C0B5' : '#64C0B5'},
+          ]}
+
+          //Called when a touch is released.
+          onPressOut={()=> {
+            if(savedRecordings<10)
+            {
+              stopRecording ()
+            }
+              }}>
+          {({ pressed }) =>
+          //if(recordingUri != 'none'){}
+          
+          <Text style={style.button_text}>{pressed ? 'שחרר כדי לעצור' : 'הקלט'}</Text>}
+        </Pressable>
+        */
