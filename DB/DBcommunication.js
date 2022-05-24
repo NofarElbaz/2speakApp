@@ -1,7 +1,51 @@
 import {userID} from '../screens/Home'
+import {ToastAndroid} from 'react-native'
 export const BACKEND_URL = "https://finalproject2speak-default-rtdb.firebaseio.com/"
 import { STATIC_CATEGORY } from '../staticData/staticCategoreis'
 import {STATIC_WORDS} from '../staticData/staticWords'
+
+export async function allRecordings({word}){
+  const response = await fetch(BACKEND_URL+'Users/'+userID+'/words/'+word+'.json',
+    {
+      method: 'GET',
+      headers: {
+          'Content-Type': 'application/json'
+      }
+    })
+  const wordDetails = await response.json([])
+  if(wordDetails.records == undefined){
+    return []
+  }
+  else{
+    return wordDetails.records
+  }
+}
+
+export async function addRecord({word,recordURI}){
+  let recordsArr = []
+  const allRrcordigns = await allRecordings({word:word})
+  if(allRrcordigns.length < 10){
+    for(let i=0; i<allRrcordigns.length;i++){
+      recordsArr.push(allRrcordigns[i])
+    }
+    recordsArr.push(recordURI.getURI())
+    fetch(BACKEND_URL+'Users/'+userID+'/words/'+word+'.json',
+    {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        records: recordsArr
+      })
+    })
+  }
+  else{
+    ToastAndroid.showWithGravity
+    ('קיימות מספיק הקלטות במערכת עבור מילה זו, ניתן לתרגם',ToastAndroid.SHORT,ToastAndroid.CENTER);
+  }
+
+}
 
 export async function existingUser({userID}){
 
