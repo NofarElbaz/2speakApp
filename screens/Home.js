@@ -3,7 +3,7 @@ import React from "react";
 import {StyleSheet,View,Button,ImageBackground,Dimensions} from "react-native";
 import * as Application from 'expo-application';
 import {STATIC_CATEGORY} from '../staticData/staticCategoreis'
-import {postCategoreis,postWords } from "../DB/DBcommunication";
+import {postCategoreis,postWords,existingUser} from "../DB/DBcommunication";
 
 export const userID = Application.androidId
 console.log("run on deviceID:" ,userID)
@@ -12,8 +12,16 @@ const windowH = Dimensions.get('window').height;
 
 export const Home = ({navigation}) => {
   
-  postCategoreis()
-  postWords()
+  async function saveSystemDataOnDB(){
+    //once user open this aplication - all system data save below user's collection in DB
+    exist = await existingUser({userID:userID})
+    if(!exist){
+      postCategoreis()
+      postWords()
+    }    
+    navigation.navigate('AllCategories',{STATIC_CATEGORY,userID})
+  }
+  
 
   return (
     <View style = {styles.container}>
@@ -23,7 +31,7 @@ export const Home = ({navigation}) => {
           onPress={() => navigation.navigate('Video')}
           color='#64C0B5'/>
           <Button title="לוח אימון"
-          onPress={() => navigation.navigate('AllCategories',{STATIC_CATEGORY,userID})}
+          onPress={saveSystemDataOnDB}
           //onPress={() => navigation.navigate("Training")}
           color='#64C0B5'/>
         <Button title="תרגום"

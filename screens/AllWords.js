@@ -2,7 +2,7 @@ import React , {useState,useEffect} from 'react';
 import { View,ScrollView,Button} from 'react-native';
 import { WordItem } from '../components/WordItem';
 import { TrainingTableStyle } from '../Styles/TrainingTableStyle';
-import {getWordsData} from '../DB/DBcommunication'
+import {getWordsData, deleteCategory} from '../DB/DBcommunication'
 
 
 export function renderWordItem({wordDetails,user,category} ){
@@ -37,11 +37,20 @@ export const AllWords = ({route,navigation}) => {
             Warr.push(doc)
         }
         setWordArr(Warr)
+        return () => {
+            Warr=[]
+            doc={}
+        }
     },[allWords])
+
+    function deleteCat(){
+        deleteCategory({category:categoryName})
+        navigation.navigate('AllCategories',{userID: user})
+    }
 
     return(
         <ScrollView style={TrainingTableStyle.ScrollView}>
-            <Button title='מחיקת קטגוריה' color='red' onPress={() => navigation.navigate('AllCategories',{userID: user})} />
+            <Button title='מחיקת קטגוריה' color='red' onPress={deleteCat} />
             <Button title='הוספת מילה' color='#64c0b5' onPress={() => navigation.navigate('AddWord',{userID: user, categoryName:categoryName})} />
             <View style={TrainingTableStyle.container}> 
 

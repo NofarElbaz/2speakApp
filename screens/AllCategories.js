@@ -18,7 +18,7 @@ function renderFreeWordItem({wordDetails,user} ){
 }
 
 
-export function AllCategorys ({route,navigation}) {
+export function AllCategories ({route,navigation}) {
     const {userID } = route.params;
     const [catArr,setCatArr] = useState([]);
     const [wordArr,setWordArr] = useState([]);
@@ -37,17 +37,21 @@ export function AllCategorys ({route,navigation}) {
     }
 
     useEffect(()=>{ 
-    catData()
-    let Carr=[]
-    for(const property in allCategories){
-        // console.log(property)
-        let doc={
-            categoryName:allCategories[property].categoryName,
-            imageURI:allCategories[property].imageURI
+        catData()
+        let Carr=[]
+        for(const property in allCategories){
+            // console.log(property)
+            let doc={
+                categoryName:allCategories[property].categoryName,
+                imageURI:allCategories[property].imageURI
+            }
+            Carr.push(doc)
         }
-        Carr.push(doc)
-    }
-    setCatArr(Carr)
+        setCatArr(Carr)
+        return () => {
+          Carr = []
+          doc = {}  
+        }
     },[allCategories])
 
     useEffect(()=>{ 
@@ -64,6 +68,10 @@ export function AllCategorys ({route,navigation}) {
             Warr.push(doc)
         }
         setWordArr(Warr)
+        return () => {
+            Warr = []
+            doc = {}  
+          }
     },[allWords])
         
     

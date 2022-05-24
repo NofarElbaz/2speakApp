@@ -2,8 +2,7 @@
 import React, {useState} from 'react';
 import { StyleSheet, View, TextInput , Button, Image , ToastAndroid } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import { STATIC_CATEGORY } from '../staticData/staticCategoreis';
-import { patchNewWord } from '../DB/DBcommunication';
+import { patchNewWord , existingWord} from '../DB/DBcommunication';
 
 export function AddWord ({route,navigation}){
   const { userID, categoryName } = route.params;
@@ -24,24 +23,32 @@ export function AddWord ({route,navigation}){
     }
   };
 
-  function saveWord(){
-    //console.log("hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
+  async function saveWord(){
 
-    if (text == "Useless Text" || text == ""){
-      ToastAndroid.showWithGravity
-        ('הוסף שם קטגוריה',ToastAndroid.SHORT,ToastAndroid.CENTER);
-        return 1
-
-    }
-    else if (image == null ){
-      ToastAndroid.showWithGravity
+    if(text != "Useless Text" && text != ""){
+      if(image != null){
+        const exist =  await existingWord({word:text})
+        if(exist){
+          ToastAndroid.showWithGravity
+          ('מילה זו קיימת במערכת',ToastAndroid.SHORT,ToastAndroid.CENTER);
+        }
+        else{
+          console.log("new Wordddddddddddddddd!!!!!!")
+          patchNewWord({userID:userID,wordName:text,categoryName:categoryName,image:image})
+          navigation.navigate("AllCategories",{userID})
+        }
+      }
+      else{
+        ToastAndroid.showWithGravity
         ('יש לבחור תמונה',ToastAndroid.SHORT,ToastAndroid.CENTER);
         return 1
+      }
     }
-
-    patchNewWord({userID:userID,wordName:text,categoryName:categoryName,image:image})
-    navigation.navigate("AllCategories",{STATIC_CATEGORY,userID})
-
+    else{
+      ToastAndroid.showWithGravity
+    ('יש להקליד מילה',ToastAndroid.SHORT,ToastAndroid.CENTER);
+    return 1
+    }
   }  
   
 

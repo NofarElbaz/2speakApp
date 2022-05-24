@@ -3,12 +3,11 @@ import React, {useState} from 'react';
 import { StyleSheet, View, TextInput , Button, Image , ToastAndroid } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { STATIC_CATEGORY } from '../staticData/staticCategoreis';
-import { BACKEND_URL, patchNewCategory } from '../DB/DBcommunication';
+import {patchNewCategory,existingCategory } from '../DB/DBcommunication';
 
 
 
-export function AddCategory ({route,navigation}){
-  //console.log(route.params)
+export const AddCategory = ({route,navigation}) =>{
   const { userID } = route.params;
   const [image, setImage] = useState(null); //image URI
   const [text, onChangeText] = React.useState("Useless Text");
@@ -21,34 +20,39 @@ export function AddCategory ({route,navigation}){
       aspect: [4, 3],
       quality: 1,
     });
-
     if (!result.cancelled) {
       setImage(result.uri);
     }
   };
 
-  function saveCategory(){
-    //console.log("hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
-  
-
-    if (text == "Useless Text" || text == ""){
-      ToastAndroid.showWithGravity
-        ('הוסף שם קטגוריה',ToastAndroid.SHORT,ToastAndroid.CENTER);
-        return 1
-
-    }
-    else if (image == null ){
-      ToastAndroid.showWithGravity
+  async function saveCategory(){ 
+    if(text != "Useless Text" && text != ""){
+      if(image != null){
+        const exist =  await existingCategory({categoryName:text})
+        console.log(exist)
+        if(exist){
+          ToastAndroid.showWithGravity
+          ('שם קטגוריה קיים במערכת',ToastAndroid.SHORT,ToastAndroid.CENTER);
+        }
+        else{
+          console.log("new Category!!!!!!")
+          patchNewCategory({userID:userID,categoryName:text,image:image})
+          navigation.navigate("AllCategories",{STATIC_CATEGORY,userID})
+        }
+      }
+      else{
+        ToastAndroid.showWithGravity
         ('יש לבחור תמונה',ToastAndroid.SHORT,ToastAndroid.CENTER);
         return 1
+      }
     }
-
-    patchNewCategory({userID:userID,categoryName:text,image:image})
-    navigation.navigate("AllCategories",{STATIC_CATEGORY,userID})
-     
-  }  
+    else{
+      ToastAndroid.showWithGravity
+    ('הוסף שם קטגוריה',ToastAndroid.SHORT,ToastAndroid.CENTER);
+    return 1
+    }
+  }
   
-
   return(
     <View style={styles.container}>
       <View style={styles.textContainer} >

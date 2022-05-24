@@ -7,7 +7,7 @@ import {Home} from "../screens/Home";
 import {GuidingVideo} from '../screens/GuidingVideo';
 import { AddCategory } from '../screens/AddCategory';
 import { AddWord } from '../screens/AddWord';
-import { AllCategorys } from '../screens/AllCategorys';
+import { AllCategories } from '../screens/AllCategories';
 import {AllWords} from '../screens/AllWords';
 import { TranslatingScreen } from '../screens/TranslatingScreen'
 import {Recording} from '../screens/Recording';
@@ -22,7 +22,7 @@ export const Navigation = () => {
         <Stack.Navigator initialRouteName="FirstHome">
         <Stack.Screen name = "Home" component={Home} />
         <Stack.Screen name = "Video" component={GuidingVideo} />
-        <Stack.Screen name = "AllCategories" component={AllCategorys} />
+        <Stack.Screen name = "AllCategories" component={AllCategories} />
         <Stack.Screen name = "AddCategory" component={AddCategory} />
         <Stack.Screen name = "AddWord" component={AddWord} />
         <Stack.Screen name = "AllWords" component={AllWords} />

@@ -2,7 +2,6 @@ import { StyleSheet ,Dimensions } from "react-native"
 
 
 const windowW= Dimensions.get('window').width;
-const windowH = Dimensions.get('window').height;
 
 export const RecordingStyles = StyleSheet.create({
     container: {

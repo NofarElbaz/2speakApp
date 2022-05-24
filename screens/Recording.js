@@ -2,7 +2,7 @@ import { View, StyleSheet, ToastAndroid ,Image,Pressable ,Text ,Dimensions,Butto
 import { IconButton } from 'react-native-paper';
 import React , { useState } from 'react'; 
 import { Audio } from 'expo-av';
-
+import { deleteW } from '../DB/DBcommunication';
 
 const windowW= Dimensions.get('window').width;
 const windowH = Dimensions.get('window').height;
@@ -14,6 +14,7 @@ export const Recording = ({ route, navigation }) => {
   const [recordingStopped , setRecordingStopped] = useState("false");
   const { userID,wordName,categoryName,image} = route.params;
   const [timesPressed, setTimesPressed] = useState(0);
+
 
   async function startRecording() {
       //('ישנה הקלטה הממתינה להמשך ביצוע פעולות\nלחיצה על כפתור "וי" - תשמור את ההקלטה\nלחיצה על כפתור "איקס" - תמחוק את ההקלטה\nלחיצה על כפתור "חץ" - תשמיע שוב את ההקלטהל',ToastAndroid.SHORT,ToastAndroid.CENTER);
@@ -133,25 +134,22 @@ export const Recording = ({ route, navigation }) => {
       ToastAndroid.showWithGravity('לא ניתן למחוק הקלטה טרם בוצעה',ToastAndroid.SHORT,ToastAndroid.CENTER)
     }
   }
-/*
-  let textLog = '';
-  if (timesPressed > 1) {
-    textLog = timesPressed + 'x onPress';
-  } else if (timesPressed > 0) {
-    textLog = 'onPress';
-  }
-  */
 
   function printConsole () {
     console.log('Pressable Called.....')
   }
 
+  function deleteWord(){
+    console.log("deleteee worddd!!!!")
+    deleteW({word:wordName})
+    navigation.navigate("AllCategories",{userID})
+  }
+
   return (
     <View style = {style.container}>
-      <Button title='מחיקת מילה' color='red' onPress={() => navigation.navigate('AllWords',{categoryName: categoryName,user: userID })} />
+      <Button title='מחיקת מילה' color='red' onPress={deleteWord} />
       <Text style={style.text1}>הקלט את המילה</Text>
-      <Text style={style.text2}>{wordName}</Text>
-      
+      <Text style={style.text2}>{wordName}</Text>      
       <View style={style.pressableStyle}>
         <Pressable
           
@@ -239,16 +237,16 @@ export const Recording = ({ route, navigation }) => {
       color: "#64C0B5",
       fontWeight: 'bold',
       textAlign: "center",
-      fontSize :30,
-      marginTop : '13%',
+      fontSize :25,
+      marginTop : '10%',
     },
     text2:{
       fontFamily: "verdana",
       color: "#64C0B5",
       fontWeight: 'bold',
       textAlign: "center",
-      fontSize :48,
-      marginTop : '7%',
+      fontSize :35,
+      //marginTop : '7%',
     },
     button_text:{
       fontFamily: "verdana",

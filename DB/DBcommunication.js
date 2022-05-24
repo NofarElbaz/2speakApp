@@ -3,9 +3,117 @@ export const BACKEND_URL = "https://finalproject2speak-default-rtdb.firebaseio.c
 import { STATIC_CATEGORY } from '../staticData/staticCategoreis'
 import {STATIC_WORDS} from '../staticData/staticWords'
 
+export async function existingUser({userID}){
+
+  const response = await fetch(BACKEND_URL+'Users.json',
+    {
+      method: 'GET',
+      headers: {
+          'Content-Type': 'application/json'
+      }
+    })
+    const allUsers = await response.json([])
+    for(const property in allUsers){
+      if(property ==  userID ){
+        return true
+      }
+    }
+    return false
+}
+
+export function deleteW({word}){
+  //delete word from DB
+
+  console.log(word)
+  
+  fetch(BACKEND_URL+'Users/'+userID+'/words/'+word+'.json',
+  {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  
+}
+export async function deleteCategory({category}){
+
+  //delete category
+  fetch(BACKEND_URL+'Users/'+userID+'/categories/'+category+'.json',
+  {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+
+  //delete all words in this category
+
+  const response = await fetch(BACKEND_URL+userID+'/words.json',
+  {
+      method: 'GET',
+      headers: {
+          'Content-Type': 'application/json'
+      }
+  })
+
+  const allWords = await response.json([])
+
+  for(const property in allWords){
+    if(allWords[property].categoryName == category){
+      fetch(BACKEND_URL+'/'+userID+'/words/'+allWords[property].wordName+'.json',
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+    }
+  }
+}
+
+
+export async function existingWord({word}){
+
+    const response = await fetch(BACKEND_URL+'Users/'+userID+'/words.json',
+    {
+      method: 'GET',
+      headers: {
+          'Content-Type': 'application/json'
+      }
+    })
+    const allWords = await response.json([])
+    for(const property in allWords){
+      if(allWords[property].wordName ==  word ){
+      return true
+      }
+    }
+    return false
+  
+}
+
+export async function existingCategory({categoryName}){
+
+  const response = await fetch(BACKEND_URL+'Users/'+userID+'/categories.json',
+  {
+      method: 'GET',
+      headers: {
+          'Content-Type': 'application/json'
+      }
+  })
+  const allCategories = await response.json([])
+
+  for(const property in allCategories){
+
+    if(allCategories[property].categoryName ==  categoryName ){
+      return true
+    }
+  }
+  return false
+}
+
 export async function getCategoriesData(){
 
-  const response = await fetch(BACKEND_URL+userID+'/categories.json',
+  const response = await fetch(BACKEND_URL+'Users/'+userID+'/categories.json',
   {
       method: 'GET',
       headers: {
@@ -17,16 +125,12 @@ export async function getCategoriesData(){
   if(!response.ok){
       console.log("load data from DB fails")
   }
-  else{
-      //console.log(allCategories)
-      //console.log('-------------------------------')
-  }
   return allCategories
 }
 
 export async function getWordsData(){
 
-  const response = await fetch(BACKEND_URL+userID+'/words.json',
+  const response = await fetch(BACKEND_URL+'Users/'+userID+'/words.json',
   {
       method: 'GET',
       headers: {
@@ -38,16 +142,13 @@ export async function getWordsData(){
   if(!response.ok){
       console.log("load data from DB fails")
   }
-  else{
-      //console.log(allCategories)
-      //console.log('-------------------------------')
-  }
+  
   return allwords
 }
 
 export function patchNewWord({userID,wordName,categoryName,image}){
 
-    fetch(BACKEND_URL+'/'+userID+'/words/'+wordName+'.json',
+    fetch(BACKEND_URL+'Users/'+userID+'/words/'+wordName+'.json',
     {
       method: 'PATCH',
       headers: {
@@ -64,7 +165,7 @@ export function patchNewWord({userID,wordName,categoryName,image}){
 
 export function patchNewCategory({userID,categoryName,image}){
 
-    fetch(BACKEND_URL+'/'+userID+'/categories/'+categoryName+'.json',
+    fetch(BACKEND_URL+'Users/'+userID+'/categories/'+categoryName+'.json',
     {
       method: 'PATCH',
       headers: {
@@ -93,7 +194,7 @@ export function postWords(){
 
 function postCatDB({categoryName,imageURI}){
 
-  fetch(BACKEND_URL+'/'+userID+'/categories/'+categoryName+'.json',
+  fetch(BACKEND_URL+'Users/'+userID+'/categories/'+categoryName+'.json',
   {
     method: 'PATCH',
     headers: {
@@ -108,7 +209,7 @@ function postCatDB({categoryName,imageURI}){
 
 function postWordDB({categoryName,imageURI,wordName}){
 
-  fetch(BACKEND_URL+'/'+userID+'/words/'+wordName+'.json',
+  fetch(BACKEND_URL+'Users/'+userID+'/words/'+wordName+'.json',
   {
     method: 'PATCH',
     headers: {
@@ -122,3 +223,4 @@ function postWordDB({categoryName,imageURI,wordName}){
     })
   })
 }
+

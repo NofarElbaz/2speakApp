@@ -8,8 +8,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "type": "module"
-  },
+    "type": "module" 
+   },
   "dependencies": {
     "@expo/vector-icons": "12.0.5",
     "@react-native-voice/voice": "^3.2.3",
