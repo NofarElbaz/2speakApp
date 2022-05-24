@@ -47,7 +47,7 @@ export const STATIC_WORDS = [
     {
         category:'צבעים',
         word:'ירוק',
-        image: 'https://i.ibb.co/nmBFTpG/square.png' 
+        image: 'https://i.ibb.co/XjXVdtT/green.png' 
     },
     {
         category:'מספרים',
