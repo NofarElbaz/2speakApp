@@ -7,13 +7,11 @@ const windowW= Dimensions.get('window').width;
 const windowH = Dimensions.get('window').height;
 
 export const TranslatingScreen = () => {
-  const [recordingUri, setRecordingUri] = useState("none");
+  const [recording, setRecording] = useState("none");
   const [savedRecordings, setSavedRecordings] = useState(1);
   const [recordingStarted,setRecordingStarted] = useState("false");
   const [recordingStopped , setRecordingStopped] = useState("false");
-
-  //const [saveRecording , setSaveRecording] = useState("false");
-
+  const [timesPressed, setTimesPressed] = useState(0);
 
   async function startR(){
     try {
@@ -29,8 +27,7 @@ export const TranslatingScreen = () => {
       const { recording } = await Audio.Recording.createAsync(
         Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY //RecordingOptions- extension: '.m4a',
       );
-      setRecordingUri(recording);
-      console.log('Recording started');
+      setRecording(recording);
     } 
     catch (err) {
       console.error('Failed to start recording', err);
@@ -38,10 +35,10 @@ export const TranslatingScreen = () => {
   }
 
   async function stopRecording() {
+    //connect with model and return the text
       console.log('Stopping recording..');
-      //setRecording(recording);
-      await recordingUri.stopAndUnloadAsync();
-      const uri = recordingUri.getURI(); 
+      await recording.stopAndUnloadAsync();
+      const uri = recording.getURI(); 
       console.log('Recording stopped and stored at', uri);
       setRecordingStopped("true");
       playRecording()
@@ -49,22 +46,14 @@ export const TranslatingScreen = () => {
 
   async function playRecording() {
     console.log("play recording...");
-    //console.log( recording.getURI());
     //Audio.Sound - This class represents a sound corresponding to an Asset or URL, Returns: A newly constructed instance of Audio.Sound.
     const { sound } = await Audio.Sound.createAsync(
-      {uri: recordingUri.getURI() }
+      {uri: recording.getURI() }
     );
     //setRecording(recording);
     console.log("Playing Sound");
     await sound.playAsync();
   }
-
-  function printConsole () {
-    console.log('Pressable Called.....')
-    Alert.alert('Pressable Called.....')
-  }
-
-  const [timesPressed, setTimesPressed] = useState(0);
 
   let textLog = '';
   if (timesPressed > 1) {
@@ -78,33 +67,26 @@ export const TranslatingScreen = () => {
         <Text style={style.text1}>התחל הקלטה</Text>
         <View style={style.pressableStyle}>
         <Pressable
-            //Called after onPressOut.
-            onPress={() =>{printConsole();}}
-
             //Called immediately when a touch is engaged, before onPressOut and onPress.
             onPressIn={() => {
                 setTimesPressed(current => current + 1);
                 startR();
             }}
             style={({ pressed }) => [{
-                backgroundColor: pressed ? '#64C0B5' : '#64C0B5'},
+                backgroundColor: pressed ? 'red' : '#64C0B5'},
                 //style.wrapperCustom
             ]}
-
             //Called when a touch is released.
             onPressOut={
-                ()=> {if(savedRecordings<10){stopRecording ()}
-            }}>
-            {({ pressed }) => <Text style={style.button_text}>{pressed ? 'שחרר כדי לעצור' : 'הקלט'}</Text>}
+              stopRecording}
+            >
+            {({ pressed }) => <Text style={style.button_text}>{pressed ? 'הקלט' : 'הקלט'}</Text>}
         </Pressable>   
-        
-          
         </View> 
     </View> 
   )}
   const style = StyleSheet.create({
     container: {
-        //backgroundColor: 'white',
         backgroundColor:'#E4FAF5',
         flex :1
     },
@@ -113,26 +95,20 @@ export const TranslatingScreen = () => {
       justifyContent:'center',
       flexDirection: 'row',
       marginTop: "15%",
-      //marginLeft: "19%",
-      //flexDirection:'row',
       justifyContent: 'space-between',
       marginHorizontal: 30,
     
     },
     pressableStyle: {
       borderRadius: 100,
-      marginTop: "70%",
+      marginTop: "20%",
       padding: 3,
       height: windowH/6.8,
       width: windowW/3.5,
-      //justifyContent: 'flex-end',
       justifyContent:'center',
       alignItems: 'center',
       elevation: 15,
       borderWidth: 2, //Frame thickness
-      //borderColor: "#cde8e1",
-      //color:"#64C0B5",
-      //borderColor: "#64C0B5",
       borderColor: "white", 
       backgroundColor:"#64C0B5",
       marginLeft: windowW/2.7,
@@ -143,9 +119,8 @@ export const TranslatingScreen = () => {
       color: "#64C0B5",
       fontWeight: 'bold',
       textAlign: "center",
-      fontSize :40,
-      marginTop : '20%'
-      //marginBottom: '60%',
+      fontSize :30,
+      marginTop : '40%'
     },
     text2:{
       fontFamily: "verdana",
@@ -154,7 +129,6 @@ export const TranslatingScreen = () => {
       textAlign: "center",
       fontSize :45,
       marginTop : '7%'
-      //marginBottom: '60%',
     },
     button_text:{
         fontFamily: "verdana",
@@ -182,27 +156,3 @@ export const TranslatingScreen = () => {
     }
 
 });
-
-/*
-
-  <IconButton
-          icon="record"
-          color={"#addfd5"}
-          size={45}
-          onPress={() => startRecording() }
-        />
-        <IconButton
-          icon="stop"
-          color={"#addfd5"}
-          size={45}
-          onPress={() => stopRecording ()}
-        />
-          <IconButton 
-          icon="play"
-          color={"#addfd5"}
-          size={45}
-          onPress={() => playRecording()}
-        />
-
-*/
-

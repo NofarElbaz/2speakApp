@@ -154,13 +154,16 @@ export const Recording = ({ route, navigation }) => {
 
             }
           }}
+          style={({ pressed }) => [{
+            backgroundColor: pressed ? 'red' : '#64C0B5'},
+          ]}
           //Called when a touch is released.
           onPressOut={()=> {
             if(savedRecordings<10){
               stopRecording ()
             }
-          }}>
-
+          }}
+          >
           {({ pressed }) => <Text style={style.button_text}>{pressed && recordingUri === 'none' && savedRecordings < 10  ? 'הקלט' : 'הקלט'}</Text>}
 
         </Pressable>
