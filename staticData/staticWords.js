@@ -345,4 +345,14 @@ export const STATIC_WORDS = [
         word:'מהר',
         image:'https://i.ibb.co/3hkSRz0/fast.png'
     },
+    {
+        category:'שמות תואר',
+        word:'כואב',
+        image:'https://i.ibb.co/jfDSzSG/Whats-App-Image-2022-06-02-at-14-01-56.jpg'
+    },
+    {
+        category:'פעלים',
+        word:'לישון',
+        image:'https://i.ibb.co/mJ4wCnK/Whats-App-Image-2022-06-02-at-14-01-56-1.jpg'
+    },
 ]

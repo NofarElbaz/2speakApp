@@ -1,10 +1,17 @@
 import { View, StyleSheet, ToastAndroid ,Image,Pressable ,Text ,Dimensions,Alert} from 'react-native';
-import { IconButton } from 'react-native-paper';
 import React , { useState } from 'react'; 
 import { Audio } from 'expo-av';
+//import { SpeechSDK } from 'microsoft-cognitiveservices-speech-sdk'
 
 const windowW= Dimensions.get('window').width;
 const windowH = Dimensions.get('window').height;
+
+//var sdk = require("microsoft-cognitiveservices-speech-sdk");
+/*
+var config = SpeechSDK.SpeechConfig.fromSubscription("6f04f45f094c4662a4aa86b3a305177a", "uaenorth");
+config.endpointId = "c7b69f64-bac8-4ab6-bc32-06d76e42596e";
+var reco = new SpeechSDK.SpeechRecognizer(config);
+*/
 
 export const TranslatingScreen = () => {
   const [recording, setRecording] = useState("none");
@@ -12,6 +19,31 @@ export const TranslatingScreen = () => {
   const [recordingStarted,setRecordingStarted] = useState("false");
   const [recordingStopped , setRecordingStopped] = useState("false");
   const [timesPressed, setTimesPressed] = useState(0);
+  //const [sound , setSound ] = useState("");
+
+  async function stopRecording() {
+    //connect with model and return the text
+      console.log('Stopping recording..');
+      await recording.stopAndUnloadAsync();
+      const uri = recording.getURI(); 
+      console.log('Recording stopped and stored at', uri);
+      setRecordingStopped("true");
+      playRecording()
+      /*
+      const { sound } = await Audio.Sound.createAsync(
+        require('../assets/cat(1).wav')
+      );
+      setSound(sound);
+      printWord(sound)
+      */
+  }
+
+
+  function printWord(record){
+    console.log("hereeeeeeeeee: "+ reco +"record Path:"+record)
+    word = (reco(record)).toString()
+    Alert.alert(word)
+  }
 
   async function startR(){
     try {
@@ -34,15 +66,6 @@ export const TranslatingScreen = () => {
     }
   }
 
-  async function stopRecording() {
-    //connect with model and return the text
-      console.log('Stopping recording..');
-      await recording.stopAndUnloadAsync();
-      const uri = recording.getURI(); 
-      console.log('Recording stopped and stored at', uri);
-      setRecordingStopped("true");
-      playRecording()
-  }
 
   async function playRecording() {
     console.log("play recording...");
@@ -81,7 +104,7 @@ export const TranslatingScreen = () => {
               stopRecording}
             >
             {({ pressed }) => <Text style={style.button_text}>{pressed ? 'הקלט' : 'הקלט'}</Text>}
-        </Pressable>   
+        </Pressable>  
         </View> 
     </View> 
   )}

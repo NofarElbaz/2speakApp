@@ -8,8 +8,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "type": "module" 
-   },
+    "type": "module"
+  },
   "dependencies": {
     "@expo/vector-icons": "12.0.5",
     "@react-native-voice/voice": "^3.2.3",
@@ -25,6 +25,7 @@
     "expo-image-picker": "^12.0.2",
     "expo-status-bar": "~1.2.0",
     "install": "^0.13.0",
+    "microsoft-cognitiveservices-speech-sdk": "^1.21.1",
     "mongodb": "^4.3.1",
     "mongoose": "^6.2.8",
     "react": "^17.0.2",
