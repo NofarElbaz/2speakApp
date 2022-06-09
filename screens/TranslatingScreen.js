@@ -1,25 +1,15 @@
-import { View, StyleSheet, ToastAndroid ,Image,Pressable ,Text ,Dimensions,Alert} from 'react-native';
+import { View, StyleSheet,Pressable ,Text ,Dimensions,Alert} from 'react-native';
 import React , { useState } from 'react'; 
 import { Audio } from 'expo-av';
-//import { SpeechSDK } from 'microsoft-cognitiveservices-speech-sdk'
+import axios from 'axios';
 
 const windowW= Dimensions.get('window').width;
 const windowH = Dimensions.get('window').height;
 
-//var sdk = require("microsoft-cognitiveservices-speech-sdk");
-/*
-var config = SpeechSDK.SpeechConfig.fromSubscription("6f04f45f094c4662a4aa86b3a305177a", "uaenorth");
-config.endpointId = "c7b69f64-bac8-4ab6-bc32-06d76e42596e";
-var reco = new SpeechSDK.SpeechRecognizer(config);
-*/
-
 export const TranslatingScreen = () => {
   const [recording, setRecording] = useState("none");
-  const [savedRecordings, setSavedRecordings] = useState(1);
   const [recordingStarted,setRecordingStarted] = useState("false");
   const [recordingStopped , setRecordingStopped] = useState("false");
-  const [timesPressed, setTimesPressed] = useState(0);
-  //const [sound , setSound ] = useState("");
 
   async function stopRecording() {
     //connect with model and return the text
@@ -28,24 +18,24 @@ export const TranslatingScreen = () => {
       const uri = recording.getURI(); 
       console.log('Recording stopped and stored at', uri);
       setRecordingStopped("true");
-      playRecording()
-      /*
-      const { sound } = await Audio.Sound.createAsync(
-        require('../assets/cat(1).wav')
-      );
-      setSound(sound);
-      printWord(sound)
-      */
+      printWord(uri)
+
   }
 
+  function printWord(recordUrl){
+    console.log(recordUrl)
+    var test = 'https://cdn.sndup.net/prtd/apple%20(7).wav?token=d4oKkaJh0cHvbZoPSnWmSbvrUfimpnxhWIlRm5hwKhg&token_path=%2Fprtd%2F&expires=1654819068'
+    //catch real url and send to ariela model
+    axios.get('http://172.20.10.6:3000/speechModel/',{params: {recordUrl: test}}).then(function(response) {
+      var translate = response.request["_response"]
+      console.log("translate ----------> " + translate)
+      Alert.alert(translate)
+    }).catch(function(err) {
+        console.log(err)
+    })
+   }
 
-  function printWord(record){
-    console.log("hereeeeeeeeee: "+ reco +"record Path:"+record)
-    word = (reco(record)).toString()
-    Alert.alert(word)
-  }
-
-  async function startR(){
+  async function startRecording(){
     try {
       console.log('Chacking permissions..');
       await Audio.requestPermissionsAsync();//Request recording permissions - Asks the user to grant permissions for audio recording.
@@ -66,42 +56,18 @@ export const TranslatingScreen = () => {
     }
   }
 
-
-  async function playRecording() {
-    console.log("play recording...");
-    //Audio.Sound - This class represents a sound corresponding to an Asset or URL, Returns: A newly constructed instance of Audio.Sound.
-    const { sound } = await Audio.Sound.createAsync(
-      {uri: recording.getURI() }
-    );
-    //setRecording(recording);
-    console.log("Playing Sound");
-    await sound.playAsync();
-  }
-
-  let textLog = '';
-  if (timesPressed > 1) {
-    textLog = timesPressed + 'x onPress';
-  } else if (timesPressed > 0) {
-    textLog = 'onPress';
-  }
-
   return (
     <View style = {style.container}>
         <Text style={style.text1}>התחל הקלטה</Text>
         <View style={style.pressableStyle}>
         <Pressable
             //Called immediately when a touch is engaged, before onPressOut and onPress.
-            onPressIn={() => {
-                setTimesPressed(current => current + 1);
-                startR();
-            }}
+            onPressIn={startRecording}
             style={({ pressed }) => [{
                 backgroundColor: pressed ? 'red' : '#64C0B5'},
-                //style.wrapperCustom
             ]}
             //Called when a touch is released.
-            onPressOut={
-              stopRecording}
+            onPressOut={stopRecording}
             >
             {({ pressed }) => <Text style={style.button_text}>{pressed ? 'הקלט' : 'הקלט'}</Text>}
         </Pressable>  

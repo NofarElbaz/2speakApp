@@ -73,6 +73,7 @@ export const Recording = ({ route, navigation }) => {
       const { sound } = await Audio.Sound.createAsync(
         {uri: recordingUri.getURI() }
       );
+      console.log(sound)
       //setRecording(recording);
       await sound.playAsync();
       ToastAndroid.showWithGravity
