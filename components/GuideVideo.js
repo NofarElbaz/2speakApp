@@ -8,9 +8,7 @@ export const GuideVideo = () => {
         <Video
             ref={video}
             style={styles.video}
-            source={{
-            uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-            }}
+            source={require("../assets/guidingVideo.mp4")}
             useNativeControls
             resizeMode="contain"
             isLooping

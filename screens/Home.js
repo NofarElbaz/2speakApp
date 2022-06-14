@@ -1,9 +1,11 @@
 
 import React from "react";
-import {StyleSheet,View,Button,ImageBackground,Dimensions} from "react-native";
+import {StyleSheet,View,Button,ImageBackground,Dimensions,LogBox} from "react-native";
 import * as Application from 'expo-application';
 import {STATIC_CATEGORY} from '../staticData/staticCategoreis'
 import {postCategoreis,postWords,existingUser} from "../DB/DBcommunication";
+LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+LogBox.ignoreAllLogs();//Ignore all log notifications
 
 export const userID = Application.androidId
 console.log("run on deviceID:" ,userID)
